@@ -1,0 +1,360 @@
+<UserControl x:Class="IdentityCore.App.Views.FingerprintIdentificationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid Background="#0B0C10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Margin="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.08*"/>
+                <ColumnDefinition Width="24"/>
+                <ColumnDefinition Width="1.08*"/>
+                <ColumnDefinition Width="24"/>
+                <ColumnDefinition Width="0.96*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- ŹRÓDŁO ODCISKU -->
+            <Border Grid.Column="0" Style="{StaticResource CardStyle}" MinHeight="430">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Text="▣  Źródło biometryczne"
+                               Foreground="White"
+                               FontSize="16"
+                               FontWeight="Bold"/>
+
+                    <Border Grid.Row="1"
+                            Background="#08090D"
+                            BorderBrush="#303440"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Margin="0,18,0,12"
+                            MinHeight="240"
+                            ClipToBounds="True">
+                        <Grid>
+                            <Image Source="{Binding PreviewImagePath}"
+                                   Stretch="Uniform"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   MaxWidth="360"
+                                   MaxHeight="230"
+                                   Margin="14"/>
+                        </Grid>
+                    </Border>
+
+                    <TextBlock Grid.Row="2"
+                               Text="{Binding PreviewStatus}"
+                               Foreground="#9CA3B4"
+                               FontSize="13"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap"
+                               Margin="0,0,0,16"/>
+
+                    <StackPanel Grid.Row="3">
+                        <Button Content="Wczytaj obraz odcisku"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Command="{Binding LoadFingerprintCommand}"/>
+
+                        <Border Background="#101116"
+                                CornerRadius="4"
+                                Padding="10"
+                                Margin="0,16,0,0">
+                            <TextBlock Text="Obsługiwane: skany PNG/JPG/BMP zapisane z aplikacji skanera"
+                                       Foreground="#7E8597"
+                                       FontSize="12"
+                                       HorizontalAlignment="Center"/>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- ANALIZA -->
+            <Border Grid.Column="2" Style="{StaticResource CardStyle}" MinHeight="430">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Text="▣  Analiza odcisku palca"
+                               Foreground="White"
+                               FontSize="16"
+                               FontWeight="Bold"/>
+
+                    <Grid Grid.Row="1" Margin="0,18,0,22">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="104"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0"
+                                Width="92"
+                                Height="92"
+                                Background="#CDD5DE"
+                                BorderBrush="#FBBF24"
+                                BorderThickness="2"
+                                CornerRadius="3"
+                                ClipToBounds="True">
+                            <Grid>
+                                <Image Source="{Binding PreviewImagePath}"
+                                       Stretch="UniformToFill"
+                                       Width="92"
+                                       Height="92"/>
+
+                                <Border Height="2"
+                                        Background="#FBBF24"
+                                        VerticalAlignment="Center"
+                                        Opacity="0.85"/>
+                            </Grid>
+                        </Border>
+
+                        <Grid Grid.Column="1" Margin="16,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="28"/>
+                                <RowDefinition Height="28"/>
+                                <RowDefinition Height="28"/>
+                                <RowDefinition Height="28"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Text="Szablon:" Style="{StaticResource MutedTextStyle}"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding RidgeQuality}" Foreground="White" FontSize="13"/>
+
+                            <TextBlock Grid.Row="1" Text="Cechy:" Style="{StaticResource MutedTextStyle}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding MinutiaeCount}" Foreground="White" FontSize="13"/>
+
+                            <TextBlock Grid.Row="2" Text="Próg:" Style="{StaticResource MutedTextStyle}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding ThresholdText}" Foreground="#FBBF24" FontSize="13" FontWeight="SemiBold"/>
+
+                            <TextBlock Grid.Row="3" Text="Kontrola:" Style="{StaticResource MutedTextStyle}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding MatchMarginText}" Foreground="#C8CDD8" FontSize="13"/>
+                        </Grid>
+                    </Grid>
+
+                    <StackPanel Grid.Row="2">
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="24"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Step1Icon}" Foreground="{Binding Step1Brush}"/>
+                            <TextBlock Grid.Column="1" Text="Wczytanie obrazu" Foreground="{Binding Step1TextBrush}" FontSize="14"/>
+                            <TextBlock Grid.Column="2" Text="{Binding Step1Status}" Foreground="{Binding Step1Brush}" FontSize="12"/>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="24"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Step2Icon}" Foreground="{Binding Step2Brush}"/>
+                            <TextBlock Grid.Column="1" Text="Utworzenie template cech" Foreground="{Binding Step2TextBrush}" FontSize="14"/>
+                            <TextBlock Grid.Column="2" Text="{Binding Step2Status}" Foreground="{Binding Step2Brush}" FontSize="12"/>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="24"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Step3Icon}" Foreground="{Binding Step3Brush}"/>
+                            <TextBlock Grid.Column="1" Text="Porównanie template z bazą" Foreground="{Binding Step3TextBrush}" FontSize="14"/>
+                            <TextBlock Grid.Column="2" Text="{Binding Step3Status}" Foreground="{Binding Step3Brush}" FontSize="12"/>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="24"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Step4Icon}" Foreground="{Binding Step4Brush}"/>
+                            <TextBlock Grid.Column="1" Text="Ocena wyniku dopasowania" Foreground="{Binding Step4TextBrush}" FontSize="14"/>
+                            <TextBlock Grid.Column="2" Text="{Binding Step4Status}" Foreground="{Binding Step4Brush}" FontSize="12"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="24"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Step5Icon}" Foreground="{Binding Step5Brush}"/>
+                            <TextBlock Grid.Column="1" Text="Decyzja systemu" Foreground="{Binding Step5TextBrush}" FontSize="14"/>
+                            <TextBlock Grid.Column="2" Text="{Binding Step5Status}" Foreground="{Binding Step5Brush}" FontSize="12"/>
+                        </Grid>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="3" Margin="0,18,0,0">
+                        <Grid Margin="0,0,0,8">
+                            <TextBlock Text="Postęp analizy" Foreground="#9CA3B4" FontSize="12"/>
+                            <TextBlock Text="{Binding AnalysisProgressText}" Foreground="#C8CDD8" FontSize="12" HorizontalAlignment="Right"/>
+                        </Grid>
+
+                        <ProgressBar Height="8"
+                                     Minimum="0"
+                                     Maximum="100"
+                                     Value="{Binding AnalysisProgress}"
+                                     Margin="0,0,0,16"/>
+
+                        <Button Content="▶  Rozpocznij analizę odcisku"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Command="{Binding StartAnalysisCommand}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- WYNIK -->
+            <Border Grid.Column="4" Style="{StaticResource CardStyle}" MinHeight="430">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Text="♙  Wynik identyfikacji"
+                               Foreground="White"
+                               FontSize="16"
+                               FontWeight="Bold"/>
+
+                    <Border Grid.Row="1"
+                            Background="#08090D"
+                            BorderBrush="#242731"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Padding="16"
+                            Margin="0,18,0,18">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="112"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Width="96"
+                                    Height="120"
+                                    Background="#08090D"
+                                    BorderBrush="#2A2E3A"
+                                    BorderThickness="1"
+                                    CornerRadius="8"
+                                    HorizontalAlignment="Left"
+                                    ClipToBounds="True">
+                                <Grid>
+                                    <Image Source="{Binding MatchedProfileImagePath}"
+                                           Stretch="UniformToFill"
+                                           Visibility="{Binding ProfileImageVisibility}"/>
+
+                                    <StackPanel VerticalAlignment="Center"
+                                                Visibility="{Binding ProfilePlaceholderVisibility}"
+                                                Margin="8">
+                                        <TextBlock Text="Brak"
+                                                   Foreground="#9CA3B4"
+                                                   FontWeight="Bold"
+                                                   HorizontalAlignment="Center"/>
+                                        <TextBlock Text="profilówki"
+                                                   Foreground="#9CA3B4"
+                                                   HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <StackPanel Grid.Column="1" Margin="14,0,0,0">
+                                <TextBlock Text="Najlepsze dopasowanie"
+                                           Foreground="#9CA3B4"
+                                           FontSize="13"/>
+
+                                <TextBlock Text="{Binding BestMatchName}"
+                                           Foreground="White"
+                                           FontSize="20"
+                                           FontWeight="Bold"
+                                           TextWrapping="Wrap"
+                                           Margin="0,8,0,0"/>
+
+                                <Grid Margin="0,14,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="90"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="28"/>
+                                        <RowDefinition Height="28"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0" Text="ID osoby:" Style="{StaticResource MutedTextStyle}"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding BestMatchCode}" Foreground="White" FontSize="13" TextWrapping="Wrap"/>
+
+                                    <TextBlock Grid.Row="1" Text="Dział:" Style="{StaticResource MutedTextStyle}"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding BestMatchDepartment}" Foreground="White" FontSize="13" TextWrapping="Wrap"/>
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <StackPanel Grid.Row="2">
+                        <TextBlock Text="Score dopasowania"
+                                   Foreground="#9CA3B4"
+                                   FontSize="13"/>
+
+                        <TextBlock Text="{Binding SimilarityScoreText}"
+                                   Foreground="#FBBF24"
+                                   FontSize="38"
+                                   FontWeight="Bold"
+                                   Margin="0,8,0,0"/>
+
+                        <TextBlock Text="{Binding Decision}"
+                                   Foreground="#E5E7EB"
+                                   FontSize="15"
+                                   TextWrapping="Wrap"
+                                   Margin="0,6,0,18"/>
+
+                        <TextBlock Text="{Binding StatusMessage}"
+                                   Foreground="#00E096"
+                                   FontSize="12"
+                                   TextWrapping="Wrap"/>
+
+                        <TextBlock Text="{Binding ErrorMessage}"
+                                   Foreground="#F87171"
+                                   FontSize="12"
+                                   TextWrapping="Wrap"
+                                   Margin="0,4,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="3" Margin="0,18,0,0">
+                        <Button Content="Otwórz profil osoby"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                Command="{Binding OpenPersonProfileCommand}"
+                                IsEnabled="{Binding IsOpenProfileEnabled}"
+                                Margin="0,0,0,10"/>
+
+                        <Button Content="Zapisz próbę"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                Command="{Binding SaveAttemptCommand}"
+                                IsEnabled="{Binding IsSaveAttemptEnabled}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,353 @@
+<UserControl x:Class="IdentityCore.App.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid Background="#0B0C10">
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Margin="0,0,8,0">
+                <Grid Margin="0,0,0,18">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="18"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="18"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" Style="{StaticResource CardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="Moduł twarzy"
+                                       Foreground="#9CA3B4"
+                                       FontSize="13"/>
+                            <TextBlock Text="ML.NET / ONNX"
+                                       Foreground="White"
+                                       FontSize="19"
+                                       FontWeight="Bold"
+                                       Margin="0,8,0,0"/>
+                            <TextBlock Text="Embedding twarzy i cosine similarity"
+                                       Foreground="#7E8597"
+                                       FontSize="12"
+                                       TextWrapping="Wrap"
+                                       Margin="0,4,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="2" Style="{StaticResource CardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="Moduł odcisku"
+                                       Foreground="#9CA3B4"
+                                       FontSize="13"/>
+                            <TextBlock Text="SourceAFIS"
+                                       Foreground="White"
+                                       FontSize="19"
+                                       FontWeight="Bold"
+                                       Margin="0,8,0,0"/>
+                            <TextBlock Text="Template cech i score dopasowania"
+                                       Foreground="#7E8597"
+                                       FontSize="12"
+                                       TextWrapping="Wrap"
+                                       Margin="0,4,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="4" Style="{StaticResource CardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="Decyzja systemu"
+                                       Foreground="#9CA3B4"
+                                       FontSize="13"/>
+                            <TextBlock Text="Znaleziono / Nie znaleziono"
+                                       Foreground="White"
+                                       FontSize="19"
+                                       FontWeight="Bold"
+                                       TextWrapping="Wrap"
+                                       Margin="0,8,0,0"/>
+                            <TextBlock Text="Wynik zależy od progu i przewagi Top1–Top2"
+                                       Foreground="#7E8597"
+                                       FontSize="12"
+                                       TextWrapping="Wrap"
+                                       Margin="0,4,0,0"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.25*"/>
+                        <ColumnDefinition Width="24"/>
+                        <ColumnDefinition Width="0.85*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" Style="{StaticResource CardStyle}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="22"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="22"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0">
+                                <TextBlock Text="Progi decyzyjne"
+                                           Foreground="White"
+                                           FontSize="18"
+                                           FontWeight="Bold"/>
+                                <TextBlock Text="Te wartości są używane bezpośrednio przez moduły identyfikacji twarzy i odcisku palca."
+                                           Foreground="#9CA3B4"
+                                           FontSize="13"
+                                           TextWrapping="Wrap"
+                                           Margin="0,4,0,0"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="2">
+                                <TextBlock Text="Identyfikacja twarzy"
+                                           Foreground="#E5E7EB"
+                                           FontSize="15"
+                                           FontWeight="SemiBold"
+                                           Margin="0,0,0,12"/>
+
+                                <Grid Margin="0,0,0,14">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1.25*"/>
+                                        <ColumnDefinition Width="16"/>
+                                        <ColumnDefinition Width="120"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="0"
+                                               Text="Minimalny wynik podobieństwa"
+                                               Style="{StaticResource MutedTextStyle}"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="2"
+                                               Text="{Binding FaceMatchThresholdText}"
+                                               Foreground="#00D2FF"
+                                               FontWeight="Bold"
+                                               HorizontalAlignment="Right"/>
+                                    <Slider Style="{StaticResource InputSliderStyle}" Grid.Row="1" Grid.Column="0"
+                                            Minimum="0"
+                                            Maximum="100"
+                                            TickFrequency="1"
+                                            IsSnapToTickEnabled="False"
+                                            Value="{Binding FaceMatchThreshold, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Margin="0,8,0,0"/>
+                                    <TextBox Grid.Row="1" Grid.Column="2"
+                                             Text="{Binding FaceMatchThreshold, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=0.0}"
+                                             Style="{StaticResource InputTextBoxStyle}"
+                                             Height="40"
+                                             Margin="0,4,0,0"/>
+                                </Grid>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1.25*"/>
+                                        <ColumnDefinition Width="16"/>
+                                        <ColumnDefinition Width="120"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="0"
+                                               Text="Minimalna przewaga nad drugim kandydatem"
+                                               Style="{StaticResource MutedTextStyle}"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="2"
+                                               Text="{Binding FaceMinimumMarginText}"
+                                               Foreground="#00D2FF"
+                                               FontWeight="Bold"
+                                               HorizontalAlignment="Right"/>
+                                    <Slider Style="{StaticResource InputSliderStyle}" Grid.Row="1" Grid.Column="0"
+                                            Minimum="0"
+                                            Maximum="100"
+                                            TickFrequency="1"
+                                            IsSnapToTickEnabled="False"
+                                            Value="{Binding FaceMinimumMargin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Margin="0,8,0,0"/>
+                                    <TextBox Grid.Row="1" Grid.Column="2"
+                                             Text="{Binding FaceMinimumMargin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=0.0}"
+                                             Style="{StaticResource InputTextBoxStyle}"
+                                             Height="40"
+                                             Margin="0,4,0,0"/>
+                                </Grid>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="4">
+                                <TextBlock Text="Identyfikacja odcisku palca"
+                                           Foreground="#E5E7EB"
+                                           FontSize="15"
+                                           FontWeight="SemiBold"
+                                           Margin="0,0,0,12"/>
+
+                                <Grid Margin="0,0,0,14">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1.25*"/>
+                                        <ColumnDefinition Width="16"/>
+                                        <ColumnDefinition Width="120"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="0"
+                                               Text="Minimalny score SourceAFIS"
+                                               Style="{StaticResource MutedTextStyle}"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="2"
+                                               Text="{Binding FingerprintMatchThresholdText}"
+                                               Foreground="#00E096"
+                                               FontWeight="Bold"
+                                               HorizontalAlignment="Right"/>
+                                    <Slider Style="{StaticResource InputSliderStyle}" Grid.Row="1" Grid.Column="0"
+                                            Minimum="0"
+                                            Maximum="250"
+                                            TickFrequency="1"
+                                            IsSnapToTickEnabled="False"
+                                            Value="{Binding FingerprintMatchThreshold, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Margin="0,8,0,0"/>
+                                    <TextBox Grid.Row="1" Grid.Column="2"
+                                             Text="{Binding FingerprintMatchThreshold, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=0.0}"
+                                             Style="{StaticResource InputTextBoxStyle}"
+                                             Height="40"
+                                             Margin="0,4,0,0"/>
+                                </Grid>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1.25*"/>
+                                        <ColumnDefinition Width="16"/>
+                                        <ColumnDefinition Width="120"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="0"
+                                               Text="Minimalna przewaga nad drugim kandydatem"
+                                               Style="{StaticResource MutedTextStyle}"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="2"
+                                               Text="{Binding FingerprintMinimumMarginText}"
+                                               Foreground="#00E096"
+                                               FontWeight="Bold"
+                                               HorizontalAlignment="Right"/>
+                                    <Slider Style="{StaticResource InputSliderStyle}" Grid.Row="1" Grid.Column="0"
+                                            Minimum="0"
+                                            Maximum="250"
+                                            TickFrequency="1"
+                                            IsSnapToTickEnabled="False"
+                                            Value="{Binding FingerprintMinimumMargin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Margin="0,8,0,0"/>
+                                    <TextBox Grid.Row="1" Grid.Column="2"
+                                             Text="{Binding FingerprintMinimumMargin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=0.0}"
+                                             Style="{StaticResource InputTextBoxStyle}"
+                                             Height="40"
+                                             Margin="0,4,0,0"/>
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Column="2" Style="{StaticResource CardStyle}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="18"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="18"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0">
+                                <TextBlock Text="Ustawienia systemu"
+                                           Foreground="White"
+                                           FontSize="18"
+                                           FontWeight="Bold"/>
+                                <TextBlock Text="Tylko parametry, które realnie wpływają na identyfikację biometryczną."
+                                           Foreground="#9CA3B4"
+                                           FontSize="13"
+                                           TextWrapping="Wrap"
+                                           Margin="0,4,0,0"/>
+                            </StackPanel>
+
+                            <Border Grid.Row="2" Background="#101116" CornerRadius="10" Padding="16">
+                                <StackPanel>
+                                    <TextBlock Text="Moduły"
+                                               Foreground="#9CA3B4"
+                                               FontSize="13"/>
+                                    <TextBlock Text="Twarz: ML.NET + ONNX / ArcFace"
+                                               Foreground="White"
+                                               FontSize="14"
+                                               TextWrapping="Wrap"
+                                               Margin="0,8,0,0"/>
+                                    <TextBlock Text="Odcisk palca: SourceAFIS"
+                                               Foreground="White"
+                                               FontSize="14"
+                                               TextWrapping="Wrap"
+                                               Margin="0,4,0,0"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Row="4" Background="#101116" CornerRadius="10" Padding="16">
+                                <StackPanel>
+                                    <TextBlock Text="Zasoby lokalne"
+                                               Foreground="#9CA3B4"
+                                               FontSize="13"/>
+                                    <TextBlock Text="MLModels/arcface.onnx"
+                                               Foreground="White"
+                                               FontSize="13"
+                                               TextWrapping="Wrap"
+                                               Margin="0,8,0,0"/>
+                                    <TextBlock Text="TestData/FaceCrops"
+                                               Foreground="White"
+                                               FontSize="13"
+                                               TextWrapping="Wrap"
+                                               Margin="0,4,0,0"/>
+                                    <TextBlock Text="TestData/Fingerprints"
+                                               Foreground="White"
+                                               FontSize="13"
+                                               TextWrapping="Wrap"
+                                               Margin="0,4,0,0"/>
+                                    <TextBlock Text="TestData/ProfilePhotos"
+                                               Foreground="White"
+                                               FontSize="13"
+                                               TextWrapping="Wrap"
+                                               Margin="0,4,0,0"/>
+                                </StackPanel>
+                            </Border>
+
+                            <TextBlock Grid.Row="5"
+                                       Text="Zmiana progów wpływa na kolejne uruchomione analizy. Wcześniejsze wpisy w historii prób pozostają bez zmian."
+                                       Foreground="#7E8597"
+                                       FontSize="12"
+                                       TextWrapping="Wrap"
+                                       Margin="0,18,0,0"/>
+
+                            <Grid Grid.Row="6" Margin="0,24,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="12"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Button Grid.Column="0"
+                                        Content="Zapisz progi"
+                                        Style="{StaticResource PrimaryButtonStyle}"
+                                        Command="{Binding SaveSettingsCommand}"/>
+
+                                <Button Grid.Column="2"
+                                        Content="Domyślne"
+                                        Style="{StaticResource SecondaryButtonStyle}"
+                                        Command="{Binding ResetSettingsCommand}"/>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

@@ -1,0 +1,304 @@
+<UserControl x:Class="IdentityCore.App.Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid Background="#0B0C10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="22"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- KPI -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource CardStyle}" Margin="0,0,10,0" Padding="18">
+                <StackPanel>
+                    <TextBlock Text="Osoby w bazie" Foreground="#9CA3B4" FontSize="13"/>
+                    <TextBlock Text="{Binding TotalPersons}" Foreground="White" FontSize="32" FontWeight="Bold" Margin="0,6,0,0"/>
+                    <TextBlock Text="rekordy osobowe" Foreground="#7E8597" FontSize="12" Margin="0,3,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="1" Style="{StaticResource CardStyle}" Margin="10,0,10,0" Padding="18">
+                <StackPanel>
+                    <TextBlock Text="Osoby z biometrią" Foreground="#9CA3B4" FontSize="13"/>
+                    <TextBlock Text="{Binding PersonsWithBiometrics}" Foreground="#00E096" FontSize="32" FontWeight="Bold" Margin="0,6,0,0"/>
+                    <TextBlock Text="twarz lub odcisk" Foreground="#7E8597" FontSize="12" Margin="0,3,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="2" Style="{StaticResource CardStyle}" Margin="10,0,10,0" Padding="18">
+                <StackPanel>
+                    <TextBlock Text="Szablony twarzy" Foreground="#9CA3B4" FontSize="13"/>
+                    <TextBlock Text="{Binding FaceTemplates}" Foreground="#00D2FF" FontSize="32" FontWeight="Bold" Margin="0,6,0,0"/>
+                    <TextBlock Text="embeddingi ML.NET / ONNX" Foreground="#7E8597" FontSize="12" Margin="0,3,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="3" Style="{StaticResource CardStyle}" Margin="10,0,10,0" Padding="18">
+                <StackPanel>
+                    <TextBlock Text="Szablony odcisków" Foreground="#9CA3B4" FontSize="13"/>
+                    <TextBlock Text="{Binding FingerprintTemplates}" Foreground="#FBBF24" FontSize="32" FontWeight="Bold" Margin="0,6,0,0"/>
+                    <TextBlock Text="template cech SourceAFIS" Foreground="#7E8597" FontSize="12" Margin="0,3,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="4" Style="{StaticResource CardStyle}" Margin="10,0,0,0" Padding="18">
+                <StackPanel>
+                    <TextBlock Text="Próby identyfikacji" Foreground="#9CA3B4" FontSize="13"/>
+                    <TextBlock Text="{Binding TotalAttempts}" Foreground="White" FontSize="32" FontWeight="Bold" Margin="0,6,0,0"/>
+                    <TextBlock Text="zapisane wyniki" Foreground="#7E8597" FontSize="12" Margin="0,3,0,0"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- CONTENT -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.55*"/>
+                <ColumnDefinition Width="24"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- OSTATNIE PRÓBY -->
+            <Border Grid.Column="0"
+                    Style="{StaticResource CardStyle}"
+                    Padding="0">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="72"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="20,0">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="Ostatnie próby identyfikacji"
+                                       Foreground="White"
+                                       FontSize="18"
+                                       FontWeight="Bold"/>
+                            <TextBlock Text="Najnowsze wyniki rozpoznawania twarzy i odcisku"
+                                       Foreground="#9CA3B4"
+                                       FontSize="13"
+                                       Margin="0,4,0,0"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <DataGrid Grid.Row="1"
+                              ItemsSource="{Binding RecentAttempts}"
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              IsReadOnly="True"
+                              HeadersVisibility="Column"
+                              GridLinesVisibility="None"
+                              Background="#17191F"
+                              Foreground="White"
+                              BorderThickness="0"
+                              RowBackground="#17191F"
+                              AlternatingRowBackground="#14161C"
+                              HorizontalGridLinesBrush="#242731"
+                              VerticalGridLinesBrush="#242731"
+                              Margin="0">
+
+                        <DataGrid.Resources>
+                            <Style x:Key="DashboardCellTextStyle" TargetType="TextBlock">
+                                <Setter Property="Margin" Value="16,0"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                                <Setter Property="Foreground" Value="#E5E7EB"/>
+                            </Style>
+                        </DataGrid.Resources>
+
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="#101116"/>
+                                <Setter Property="Foreground" Value="#8F96A8"/>
+                                <Setter Property="FontSize" Value="12"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="Height" Value="42"/>
+                                <Setter Property="Padding" Value="16,0"/>
+                                <Setter Property="BorderBrush" Value="#242731"/>
+                                <Setter Property="BorderThickness" Value="0,1,0,1"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="Height" Value="52"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="BorderBrush" Value="#242731"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                            </Style>
+                        </DataGrid.RowStyle>
+
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="#E5E7EB"/>
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                            </Style>
+                        </DataGrid.CellStyle>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Data i czas" Binding="{Binding AttemptDateDisplay}" Width="2*" ElementStyle="{StaticResource DashboardCellTextStyle}"/>
+                            <DataGridTextColumn Header="Biometria" Binding="{Binding BiometricTypeDisplay}" Width="1*" ElementStyle="{StaticResource DashboardCellTextStyle}"/>
+                            <DataGridTextColumn Header="Dopasowanie" Binding="{Binding BestMatchDisplay}" Width="3*" ElementStyle="{StaticResource DashboardCellTextStyle}"/>
+                            <DataGridTextColumn Header="Wynik" Binding="{Binding ScoreDisplay}" Width="1*" ElementStyle="{StaticResource DashboardCellTextStyle}"/>
+                            <DataGridTextColumn Header="Decyzja" Binding="{Binding DecisionDisplay}" Width="2*" ElementStyle="{StaticResource DashboardCellTextStyle}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+
+            <!-- PRAWA KOLUMNA -->
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="18"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="18"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Gotowość danych biometrycznych"
+                                   Foreground="White"
+                                   FontSize="18"
+                                   FontWeight="Bold"/>
+
+                        <TextBlock Text="Pokazuje, ilu osobom przypisano szablony twarzy lub odcisku."
+                                   Foreground="#9CA3B4"
+                                   FontSize="13"
+                                   TextWrapping="Wrap"
+                                   Margin="0,4,0,18"/>
+
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Osoby z twarzą" Foreground="#9CA3B4" FontSize="13"/>
+                            <TextBlock Grid.Column="1" Text="{Binding FaceReadinessText}" Foreground="#00D2FF" FontWeight="Bold"/>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Osoby z odciskiem" Foreground="#9CA3B4" FontSize="13"/>
+                            <TextBlock Grid.Column="1" Text="{Binding FingerprintReadinessText}" Foreground="#FBBF24" FontWeight="Bold"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Pełny profil biometryczny" Foreground="#9CA3B4" FontSize="13"/>
+                            <TextBlock Grid.Column="1" Text="{Binding CompleteProfilesReadinessText}" Foreground="#00E096" FontWeight="Bold"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="2" Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Parametry rozpoznawania"
+                                   Foreground="White"
+                                   FontSize="18"
+                                   FontWeight="Bold"/>
+
+                        <TextBlock Text="Aktualne progi decyzyjne używane przez moduły identyfikacji."
+                                   Foreground="#9CA3B4"
+                                   FontSize="13"
+                                   TextWrapping="Wrap"
+                                   Margin="0,4,0,18"/>
+
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Twarz — próg" Foreground="#9CA3B4" FontSize="13"/>
+                            <TextBlock Grid.Column="1" Text="{Binding FaceThresholdDisplay}" Foreground="#00D2FF" FontWeight="Bold"/>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Twarz — margines" Foreground="#9CA3B4" FontSize="13"/>
+                            <TextBlock Grid.Column="1" Text="{Binding FaceMarginDisplay}" Foreground="#00D2FF" FontWeight="Bold"/>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Odcisk — próg" Foreground="#9CA3B4" FontSize="13"/>
+                            <TextBlock Grid.Column="1" Text="{Binding FingerprintThresholdDisplay}" Foreground="#FBBF24" FontWeight="Bold"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Odcisk — margines" Foreground="#9CA3B4" FontSize="13"/>
+                            <TextBlock Grid.Column="1" Text="{Binding FingerprintMarginDisplay}" Foreground="#FBBF24" FontWeight="Bold"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="4" Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Szybkie przejścia"
+                                   Foreground="White"
+                                   FontSize="18"
+                                   FontWeight="Bold"/>
+
+                        <TextBlock Text="Najważniejsze funkcje systemu dostępne z pulpitu."
+                                   Foreground="#9CA3B4"
+                                   FontSize="13"
+                                   TextWrapping="Wrap"
+                                   Margin="0,4,0,18"/>
+
+                        <Button Content="Rejestr osób"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                Command="{Binding DataContext.ShowPersonRegistryCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                Margin="0,0,0,10"/>
+
+                        <Button Content="Identyfikacja twarzy"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Command="{Binding DataContext.ShowFaceIdentificationCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                Margin="0,0,0,10"/>
+
+                        <Button Content="Identyfikacja odcisku"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Command="{Binding DataContext.ShowFingerprintIdentificationCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                Margin="0,0,0,10"/>
+
+                        <Button Content="Historia prób"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                Command="{Binding DataContext.ShowHistoryCommand, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

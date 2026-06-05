@@ -1,0 +1,35 @@
+# Visual Studio / .NET
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build outputs
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+
+# NuGet
+packages/
+*.nupkg
+
+# Logs
+*.log
+
+# Local database / temporary files
+*.db
+*.sqlite
+*.sqlite3
+*.bak
+
+# Patch / archive files
+*.zip
+*.rar
+*.7z
+
+# Private biometric test data
+TestData/

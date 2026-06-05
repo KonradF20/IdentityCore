@@ -1,0 +1,246 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|c:\\users\\lisek user\\source\\repos\\identitycore\\identitycore.app\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|solutionrelative:identitycore.app\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|c:\\users\\lisek user\\source\\repos\\identitycore\\identitycore.app\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|solutionrelative:identitycore.app\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|c:\\users\\lisek user\\source\\repos\\identitycore\\identitycore.app\\styles\\buttons.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|solutionrelative:identitycore.app\\styles\\buttons.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|c:\\users\\lisek user\\source\\repos\\identitycore\\identitycore.app\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|solutionrelative:identitycore.app\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|c:\\users\\lisek user\\source\\repos\\identitycore\\identitycore.app\\views\\personregistryview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|solutionrelative:identitycore.app\\views\\personregistryview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|c:\\users\\lisek user\\source\\repos\\identitycore\\identitycore.app\\views\\historyview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|solutionrelative:identitycore.app\\views\\historyview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|c:\\users\\lisek user\\source\\repos\\identitycore\\identitycore.app\\styles\\datagrid.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|solutionrelative:identitycore.app\\styles\\datagrid.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|c:\\users\\lisek user\\source\\repos\\identitycore\\identitycore.app\\viewmodels\\personregistryviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|solutionrelative:identitycore.app\\viewmodels\\personregistryviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|c:\\users\\lisek user\\source\\repos\\identitycore\\identitycore.app\\views\\loginwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|solutionrelative:identitycore.app\\views\\loginwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|c:\\users\\lisek user\\source\\repos\\identitycore\\identitycore.app\\styles\\inputs.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|solutionrelative:identitycore.app\\styles\\inputs.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|c:\\users\\lisek user\\source\\repos\\identitycore\\identitycore.app\\viewmodels\\fingerprintidentificationviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|solutionrelative:identitycore.app\\viewmodels\\fingerprintidentificationviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|c:\\users\\lisek user\\source\\repos\\identitycore\\identitycore.app\\services\\fingerprintrecognitionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|solutionrelative:identitycore.app\\services\\fingerprintrecognitionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|c:\\users\\lisek user\\source\\repos\\identitycore\\identitycore.app\\viewmodels\\faceidentificationviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|solutionrelative:identitycore.app\\viewmodels\\faceidentificationviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|c:\\users\\lisek user\\source\\repos\\identitycore\\identitycore.app\\services\\cameraservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A88CAB06-6B91-F1CB-59D7-98E41787EAA5}|IdentityCore.App\\IdentityCore.App.csproj|solutionrelative:identitycore.app\\services\\cameraservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\App.xaml",
+              "RelativeDocumentMoniker": "IdentityCore.App\\App.xaml",
+              "ToolTip": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\App.xaml",
+              "RelativeToolTip": "IdentityCore.App\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-06-05T20:25:02.288Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\ViewModels\\MainViewModel.cs",
+              "RelativeDocumentMoniker": "IdentityCore.App\\ViewModels\\MainViewModel.cs",
+              "ToolTip": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\ViewModels\\MainViewModel.cs",
+              "RelativeToolTip": "IdentityCore.App\\ViewModels\\MainViewModel.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAIAzwDgAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-05T20:22:11.44Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Buttons.xaml",
+              "DocumentMoniker": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\Styles\\Buttons.xaml",
+              "RelativeDocumentMoniker": "IdentityCore.App\\Styles\\Buttons.xaml",
+              "ToolTip": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\Styles\\Buttons.xaml",
+              "RelativeToolTip": "IdentityCore.App\\Styles\\Buttons.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-06-05T20:06:19.952Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "IdentityCore.App\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\MainWindow.xaml",
+              "RelativeToolTip": "IdentityCore.App\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-06-05T20:05:14.188Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "HistoryView.xaml",
+              "DocumentMoniker": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\Views\\HistoryView.xaml",
+              "RelativeDocumentMoniker": "IdentityCore.App\\Views\\HistoryView.xaml",
+              "ToolTip": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\Views\\HistoryView.xaml",
+              "RelativeToolTip": "IdentityCore.App\\Views\\HistoryView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-06-05T19:56:38.788Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DataGrid.xaml",
+              "DocumentMoniker": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\Styles\\DataGrid.xaml",
+              "RelativeDocumentMoniker": "IdentityCore.App\\Styles\\DataGrid.xaml",
+              "ToolTip": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\Styles\\DataGrid.xaml",
+              "RelativeToolTip": "IdentityCore.App\\Styles\\DataGrid.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-06-05T19:01:07.579Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PersonRegistryViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\ViewModels\\PersonRegistryViewModel.cs",
+              "RelativeDocumentMoniker": "IdentityCore.App\\ViewModels\\PersonRegistryViewModel.cs",
+              "ToolTip": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\ViewModels\\PersonRegistryViewModel.cs",
+              "RelativeToolTip": "IdentityCore.App\\ViewModels\\PersonRegistryViewModel.cs",
+              "ViewState": "AgIAAC0BAAAAAAAAAAAswAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-05T19:00:41.151Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LoginWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\Views\\LoginWindow.xaml",
+              "RelativeDocumentMoniker": "IdentityCore.App\\Views\\LoginWindow.xaml",
+              "ToolTip": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\Views\\LoginWindow.xaml",
+              "RelativeToolTip": "IdentityCore.App\\Views\\LoginWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-06-05T11:24:53.385Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PersonRegistryView.xaml",
+              "DocumentMoniker": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\Views\\PersonRegistryView.xaml",
+              "RelativeDocumentMoniker": "IdentityCore.App\\Views\\PersonRegistryView.xaml",
+              "ToolTip": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\Views\\PersonRegistryView.xaml",
+              "RelativeToolTip": "IdentityCore.App\\Views\\PersonRegistryView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-06-05T10:46:30.21Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Inputs.xaml",
+              "DocumentMoniker": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\Styles\\Inputs.xaml",
+              "RelativeDocumentMoniker": "IdentityCore.App\\Styles\\Inputs.xaml",
+              "ToolTip": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\Styles\\Inputs.xaml",
+              "RelativeToolTip": "IdentityCore.App\\Styles\\Inputs.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-06-05T10:46:12.879Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "FingerprintIdentificationViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\ViewModels\\FingerprintIdentificationViewModel.cs",
+              "RelativeDocumentMoniker": "IdentityCore.App\\ViewModels\\FingerprintIdentificationViewModel.cs",
+              "ToolTip": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\ViewModels\\FingerprintIdentificationViewModel.cs",
+              "RelativeToolTip": "IdentityCore.App\\ViewModels\\FingerprintIdentificationViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-05T09:17:38.993Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "FingerprintRecognitionService.cs",
+              "DocumentMoniker": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\Services\\FingerprintRecognitionService.cs",
+              "RelativeDocumentMoniker": "IdentityCore.App\\Services\\FingerprintRecognitionService.cs",
+              "ToolTip": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\Services\\FingerprintRecognitionService.cs",
+              "RelativeToolTip": "IdentityCore.App\\Services\\FingerprintRecognitionService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-29T10:22:43.573Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "FaceIdentificationViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\ViewModels\\FaceIdentificationViewModel.cs",
+              "RelativeDocumentMoniker": "IdentityCore.App\\ViewModels\\FaceIdentificationViewModel.cs",
+              "ToolTip": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\ViewModels\\FaceIdentificationViewModel.cs",
+              "RelativeToolTip": "IdentityCore.App\\ViewModels\\FaceIdentificationViewModel.cs",
+              "ViewState": "AgIAAFMDAAAAAAAAAAAswGoDAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-29T08:41:31.651Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CameraService.cs",
+              "DocumentMoniker": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\Services\\CameraService.cs",
+              "RelativeDocumentMoniker": "IdentityCore.App\\Services\\CameraService.cs",
+              "ToolTip": "C:\\Users\\Lisek User\\source\\repos\\IdentityCore\\IdentityCore.App\\Services\\CameraService.cs",
+              "RelativeToolTip": "IdentityCore.App\\Services\\CameraService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-29T08:34:33.458Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
