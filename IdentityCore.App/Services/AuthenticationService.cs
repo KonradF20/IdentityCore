@@ -23,8 +23,6 @@ public class AuthenticationService
             return false;
         }
 
-        // Na potrzeby projektu hasło jest demonstracyjne.
-        // W dokumentacji można zaznaczyć, że produkcyjnie należałoby użyć hashowania.
         if (user.PasswordHash != password)
         {
             return false;

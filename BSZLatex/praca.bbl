@@ -1,0 +1,42 @@
+\begin{thebibliography}{1}
+
+\bibitem{faceid}
+{Apple}.
+\newblock Face id security guide.
+\newblock \url{https://www.apple.com/business-docs/FaceID_Security_Guide.pdf},
+  2026.
+
+\bibitem{arcface}
+Jiankang Deng, Jia Guo, Niannan Xue, and Stefanos Zafeiriou.
+\newblock Arcface: Additive angular margin loss for deep face recognition.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition}, 2019.
+
+\bibitem{fingerprintaccess}
+{HID Global}.
+\newblock Hid signo biometric reader 25b.
+\newblock \url{https://www.hidglobal.com/products/25b}, 2026.
+
+\bibitem{windowshello}
+{Microsoft}.
+\newblock Configure windows hello.
+\newblock
+  \url{https://support.microsoft.com/en-us/windows/configure-windows-hello-dae28983-8242-bb2a-d3d1-87c9d265a5f0},
+  2026.
+
+\bibitem{biometricsdk}
+{Neurotechnology}.
+\newblock Megamatcher sdk.
+\newblock \url{https://www.neurotechnology.com/megamatcher.html}, 2026.
+
+\bibitem{onnx}
+{ONNX}.
+\newblock Open neural network exchange.
+\newblock \url{https://onnx.ai/}, 2026.
+
+\bibitem{sourceafis}
+Robert Vazan.
+\newblock Sourceafis fingerprint matcher.
+\newblock \url{https://sourceafis.machinezoo.com/}, 2026.
+
+\end{thebibliography}

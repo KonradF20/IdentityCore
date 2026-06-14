@@ -10,12 +10,7 @@ public class ImageProcessingService
 {
     private const int TargetSize = 112;
     private const string FrontalCascadeFileName = "haarcascade_frontalface_default.xml";
-
-    /// <summary>
-    /// Przygotowuje próbkę twarzy do ArcFace. Na obecnym etapie projekt akceptuje tylko twarz
-    /// frontalną lub bardzo lekki półprofil. Pełne profile i błędne cropy są odrzucane, żeby
-    /// do modelu nie trafiały próbki typu szyja/ubranie/tło.
-    /// </summary>
+    
     public Mat? ExtractAndPrepareFace(Mat originalFrame, out double qualityScore)
     {
         qualityScore = 0;

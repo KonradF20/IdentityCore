@@ -1,0 +1,115 @@
+\babel@toc {polish}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {english}{}\relax 
+\babel@toc {polish}{}\relax 
+\contentsline {chapter}{\numberline {1}Wprowadzenie}{10}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Kontekst projektu}{10}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Cel projektu}{10}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Zakres projektu}{10}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Charakter projektu łączonego}{11}{section.1.4}%
+\contentsline {chapter}{\numberline {2}Analiza problemu i istniejących rozwiązań}{12}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Opis problemu}{12}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Dane biometryczne wykorzystywane w projekcie}{12}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Założenia i ograniczenia systemu}{13}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Analiza istniejących rozwiązań}{13}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Windows Hello}{13}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Face ID}{14}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Systemy kontroli dostępu z odciskiem palca}{14}{subsection.2.4.3}%
+\contentsline {subsection}{\numberline {2.4.4}Komercyjne SDK i systemy biometryczne}{14}{subsection.2.4.4}%
+\contentsline {section}{\numberline {2.5}Wyróżniki projektowanego rozwiązania}{15}{section.2.5}%
+\contentsline {chapter}{\numberline {3}Wymagania systemowe}{16}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Wymagania funkcjonalne}{16}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Wymagania niefunkcjonalne}{17}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Wymagania dotyczące bezpieczeństwa}{18}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Założenia dotyczące użytkowników i środowiska pracy}{19}{section.3.4}%
+\contentsline {chapter}{\numberline {4}Koncepcja rozwiązania biometrycznego}{20}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Ogólna idea działania systemu}{20}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Pipeline przetwarzania danych}{20}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Proces rejestracji osoby}{21}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Proces identyfikacji osoby}{21}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Schemat blokowy działania systemu}{22}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Zastosowane metody i algorytmy}{23}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Przygotowanie danych wejściowych}{23}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Metoda identyfikacji twarzy}{23}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Metoda identyfikacji odcisku palca}{24}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Parametry decyzyjne systemu}{24}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Uzasadnienie wyboru metod}{24}{section.5.5}%
+\contentsline {chapter}{\numberline {6}Architektura aplikacji}{26}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Ogólna architektura systemu}{26}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Podział na warstwy i moduły}{26}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Struktura projektu i organizacja kodu}{28}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Zastosowane wzorce i zasady projektowe}{29}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Walidacja danych}{29}{section.6.5}%
+\contentsline {section}{\numberline {6.6}Obsługa błędów i wyjątków}{29}{section.6.6}%
+\contentsline {section}{\numberline {6.7}Czytelność i utrzymanie projektu}{29}{section.6.7}%
+\contentsline {chapter}{\numberline {7}Technologie wykorzystane w projekcie}{30}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Środowisko programistyczne}{30}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Technologie interfejsu użytkownika}{30}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Technologie dostępu do danych}{30}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Biblioteki do przetwarzania obrazu i biometrii}{31}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Narzędzia pomocnicze i organizacyjne}{31}{section.7.5}%
+\contentsline {section}{\numberline {7.6}Uzasadnienie wyboru technologii}{32}{section.7.6}%
+\contentsline {chapter}{\numberline {8}Projekt bazy danych i model danych}{33}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Założenia modelu danych}{33}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Opis głównych encji}{33}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Relacje między tabelami}{34}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Diagram ERD}{35}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Integralność danych}{36}{section.8.5}%
+\contentsline {section}{\numberline {8.6}Skrypty bazy danych i migracje}{36}{section.8.6}%
+\contentsline {section}{\numberline {8.7}Uzasadnienie przyjętego modelu danych}{36}{section.8.7}%
+\contentsline {chapter}{\numberline {9}Implementacja aplikacji}{37}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Najważniejsze moduły systemu}{37}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Implementacja rejestracji osoby}{38}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Implementacja procesu biometrycznego}{39}{section.9.3}%
+\contentsline {subsection}{\numberline {9.3.1}Implementacja identyfikacji twarzy}{39}{subsection.9.3.1}%
+\contentsline {subsection}{\numberline {9.3.2}Implementacja identyfikacji odcisku palca}{43}{subsection.9.3.2}%
+\contentsline {subsection}{\numberline {9.3.3}Zapis wyniku identyfikacji w historii}{46}{subsection.9.3.3}%
+\contentsline {section}{\numberline {9.4}Implementacja logowania i autoryzacji}{47}{section.9.4}%
+\contentsline {section}{\numberline {9.5}Operacje CRUD}{48}{section.9.5}%
+\contentsline {section}{\numberline {9.6}Nawigacja i przepływ danych w aplikacji}{48}{section.9.6}%
+\contentsline {chapter}{\numberline {10}Prezentacja warstwy użytkowej}{50}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Ogólny układ interfejsu}{50}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Ekran logowania}{50}{section.10.2}%
+\contentsline {section}{\numberline {10.3}Panel główny aplikacji}{51}{section.10.3}%
+\contentsline {section}{\numberline {10.4}Rejestr osób i profil osoby}{52}{section.10.4}%
+\contentsline {section}{\numberline {10.5}Widok identyfikacji twarzy}{53}{section.10.5}%
+\contentsline {section}{\numberline {10.6}Widok identyfikacji odcisku palca}{54}{section.10.6}%
+\contentsline {section}{\numberline {10.7}Historia prób identyfikacji}{55}{section.10.7}%
+\contentsline {section}{\numberline {10.8}Ustawienia systemu}{56}{section.10.8}%
+\contentsline {section}{\numberline {10.9}Komunikaty i informacje zwrotne dla operatora}{56}{section.10.9}%
+\contentsline {chapter}{\numberline {11}Wyniki, testy i analiza skuteczności}{57}{chapter.11}%
+\contentsline {section}{\numberline {11.1}Opis przygotowanych testów}{57}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Dane testowe}{57}{section.11.2}%
+\contentsline {section}{\numberline {11.3}Wyniki działania systemu}{58}{section.11.3}%
+\contentsline {subsection}{\numberline {11.3.1}Wyniki identyfikacji twarzy}{58}{subsection.11.3.1}%
+\contentsline {subsection}{\numberline {11.3.2}Wyniki identyfikacji odcisku palca}{59}{subsection.11.3.2}%
+\contentsline {section}{\numberline {11.4}Analiza poprawnych i błędnych rozpoznań}{61}{section.11.4}%
+\contentsline {section}{\numberline {11.5}Wpływ parametrów na działanie systemu}{61}{section.11.5}%
+\contentsline {section}{\numberline {11.6}Wnioski z eksperymentów}{61}{section.11.6}%
+\contentsline {chapter}{\numberline {12}Analiza bezpieczeństwa systemu}{62}{chapter.12}%
+\contentsline {section}{\numberline {12.1}Potencjalne zagrożenia}{62}{section.12.1}%
+\contentsline {section}{\numberline {12.2}Ryzyko fałszowania danych biometrycznych}{62}{section.12.2}%
+\contentsline {section}{\numberline {12.3}Błędy identyfikacji}{62}{section.12.3}%
+\contentsline {section}{\numberline {12.4}Ocena odporności systemu}{62}{section.12.4}%
+\contentsline {section}{\numberline {12.5}Możliwe usprawnienia bezpieczeństwa}{63}{section.12.5}%
+\contentsline {chapter}{\numberline {13}Harmonogram realizacji projektu}{64}{chapter.13}%
+\contentsline {section}{\numberline {13.1}Etapy realizacji}{64}{section.13.1}%
+\contentsline {section}{\numberline {13.2}Harmonogram prac}{64}{section.13.2}%
+\contentsline {section}{\numberline {13.3}Podział pracy}{65}{section.13.3}%
+\contentsline {chapter}{\numberline {14}Instrukcja uruchomienia projektu}{66}{chapter.14}%
+\contentsline {section}{\numberline {14.1}Wymagania systemowe}{66}{section.14.1}%
+\contentsline {section}{\numberline {14.2}Konfiguracja środowiska}{66}{section.14.2}%
+\contentsline {section}{\numberline {14.3}Konfiguracja bazy danych}{67}{section.14.3}%
+\contentsline {section}{\numberline {14.4}Uruchomienie aplikacji}{67}{section.14.4}%
+\contentsline {section}{\numberline {14.5}Dane testowe i konta testowe}{67}{section.14.5}%
+\contentsline {chapter}{\numberline {15}Podsumowanie i wnioski końcowe}{69}{chapter.15}%
+\contentsline {section}{\numberline {15.1}Ocena realizacji założeń}{69}{section.15.1}%
+\contentsline {section}{\numberline {15.2}Napotkane problemy}{69}{section.15.2}%
+\contentsline {section}{\numberline {15.3}Ocena skuteczności rozwiązania}{69}{section.15.3}%
+\contentsline {section}{\numberline {15.4}Możliwości zastosowania systemu}{70}{section.15.4}%
+\contentsline {section}{\numberline {15.5}Kierunki dalszego rozwoju}{70}{section.15.5}%
+\contentsline {chapter}{Bibliografia}{71}{section.15.5}%
+\contentsline {chapter}{Spis rysunków}{72}{chapter*.18}%
+\contentsline {chapter}{Spis tabel}{73}{chapter*.18}%
+\contentsline {chapter}{Spis listingów}{74}{chapter*.18}%
+\contentsline {section}{\textbf {Oświadczenie studenta o samodzielności pracy}}{75}{chapter*.20}%

@@ -1,0 +1,43 @@
+\chapter{Wprowadzenie}
+\label{chap:wprowadzenie}
+
+\section{Kontekst projektu}
+
+Systemy identyfikacji osób są wykorzystywane wszędzie tam, gdzie konieczne jest powiązanie danych zapisanych w systemie z konkretną osobą. W typowych rozwiązaniach informatycznych identyfikacja może opierać się na loginie, haśle, karcie dostępu lub numerze ewidencyjnym. Takie metody są proste w użyciu, ale nie zawsze potwierdzają fizyczną obecność właściwej osoby. Z tego powodu w systemach bezpieczeństwa coraz częściej wykorzystuje się dane biometryczne, czyli cechy bezpośrednio związane z człowiekiem.
+
+Projekt \textit{IdentityCore} dotyczy aplikacji służącej do wewnętrznej identyfikacji osób z wykorzystaniem dwóch cech biometrycznych: twarzy oraz odcisku palca. System został przygotowany jako aplikacja lokalna, której zadaniem jest obsługa rejestru osób, danych biometrycznych oraz prób identyfikacji. Przyjęty scenariusz odpowiada uproszczonemu systemowi wykorzystywanemu w środowisku demonstracyjnym lub laboratoryjnym, w którym operator może zarządzać profilami osób i sprawdzać wyniki identyfikacji.
+
+Projekt nie jest gotowym systemem produkcyjnym przeznaczonym do pracy w środowisku wysokiego ryzyka, ale pozwala zaprezentować pełny przebieg tworzenia aplikacji łączącej część użytkową, bazodanową oraz biometryczną.
+
+\section{Cel projektu}
+
+Głównym celem projektu było zaprojektowanie i wykonanie aplikacji \textit{IdentityCore}, która umożliwia identyfikację osób na podstawie danych biometrycznych. Aplikacja ma pozwalać na zapis danych osoby, powiązanie ich z próbkami biometrycznymi, wykonanie próby identyfikacji oraz zaprezentowanie wyniku w czytelnej formie.
+
+Cel projektu obejmuje dwa uzupełniające się obszary. Pierwszy z nich dotyczy części biometrycznej, czyli wykorzystania obrazów twarzy i odcisków palców do rozpoznawania osób. Drugi dotyczy części aplikacyjnej, obejmującej zaprojektowanie kompletnego programu desktopowego z interfejsem użytkownika, bazą danych, obsługą logowania, historią działań oraz uporządkowaną strukturą kodu.
+
+W efekcie projekt ma pokazać nie tylko samą ideę identyfikacji biometrycznej, ale również sposób jej osadzenia w działającej aplikacji użytkowej.
+
+\section{Zakres projektu}
+
+Zakres projektu obejmuje przygotowanie aplikacji umożliwiającej podstawową obsługę procesu wewnętrznej identyfikacji osób. W ramach systemu przewidziano następujące obszary funkcjonalne:
+\begin{itemize}
+    \item dostęp do aplikacji poprzez ekran logowania,
+    \item prowadzenie rejestru osób,
+    \item obsługę danych opisowych i zdjęcia profilowego osoby,
+    \item zapis i wykorzystanie danych biometrycznych twarzy,
+    \item zapis i wykorzystanie danych biometrycznych odcisku palca,
+    \item wykonanie próby identyfikacji osoby,
+    \item prezentację wyniku identyfikacji,
+    \item zapis historii wykonanych prób,
+    \item konfigurację parametrów wpływających na decyzję systemu.
+\end{itemize}
+
+\section{Charakter projektu łączonego}
+
+Dokumentacja opisuje jeden spójny projekt realizowany na potrzeby dwóch przedmiotów: \textit{Biometryczne Systemy Zabezpieczeń} oraz \textit{Programowanie Obiektowe II}. Z tego powodu aplikacja została opracowana tak, aby łączyć wymagania związane z analizą danych biometrycznych oraz wymagania dotyczące tworzenia aplikacji obiektowej.
+
+Część związana z biometrią koncentruje się na wykorzystaniu danych twarzy i odcisku palca w procesie identyfikacji osoby. Obejmuje ona przygotowanie danych wejściowych, utworzenie reprezentacji biometrycznej, porównanie z danymi zapisanymi w systemie oraz interpretację wyniku.
+
+Część związana z programowaniem obiektowym obejmuje zaprojektowanie aplikacji desktopowej, podział projektu na logiczne moduły, komunikację z bazą danych, obsługę interfejsu użytkownika, walidację danych oraz zapis historii działania systemu.
+
+Takie połączenie pozwala traktować \textit{IdentityCore} jako kompletną aplikację, w której mechanizmy biometryczne nie są oderwanym eksperymentem, lecz częścią większego systemu użytkowego.

@@ -1,0 +1,217 @@
+\chapter{Implementacja aplikacji}
+\label{chap:implementacja}
+
+\section{Najważniejsze moduły systemu}
+
+Aplikacja \textit{IdentityCore} została zaimplementowana jako lokalna aplikacja desktopowa WPF/.NET. Jej kod podzielono na części odpowiadające głównym funkcjom systemu: logowaniu operatora, rejestrowi osób, identyfikacji twarzy, identyfikacji odcisku palca, historii prób, ustawieniom systemowym oraz komunikacji z bazą danych SQL Server.
+
+Najważniejsze moduły implementacyjne aplikacji przedstawiono w tabeli~\ref{tab:moduly-implementacyjne}. Tabela nie opisuje ponownie architektury całego projektu, lecz pokazuje, które elementy kodu odpowiadają za konkretne funkcje systemu.
+
+\renewcommand{\arraystretch}{1.15}
+\begin{xltabular}{\textwidth}{|
+    >{\RaggedRight\arraybackslash}p{2.1cm}|
+    >{\RaggedRight\arraybackslash}p{7.3cm}|
+    >{\RaggedRight\arraybackslash}X|}
+
+    \hline
+    \textbf{Moduł} & \textbf{Przykładowe elementy projektu} & \textbf{Rola w aplikacji} \\
+    \hline
+    \endfirsthead
+
+    \hline
+    \textbf{Moduł} & \textbf{Przykładowe elementy projektu} & \textbf{Rola w aplikacji} \\
+    \hline
+    \endhead
+
+    Logowanie operatora & \texttt{LoginWindow}, \texttt{AuthenticationService}, \texttt{UserRepository} & Sprawdzenie danych operatora i dopuszczenie go do głównej części aplikacji. \\
+    \hline
+    Rejestr osób & \texttt{PersonRegistryView}, \texttt{PersonRegistryViewModel}, \texttt{PersonRepository} & Dodawanie, odczyt, edycja i usuwanie profili osób zapisanych w systemie. \\
+    \hline
+    Identyfikacja twarzy & \texttt{FaceIdentificationView}, \texttt{FaceIdentificationViewModel}, \texttt{FaceRecognitionService}, \texttt{FaceEmbeddingService} & Obsługa próby identyfikacji osoby na podstawie obrazu twarzy i reprezentacji uzyskanej z modelu \texttt{arcface.onnx}. \\
+    \hline
+    Identyfikacja odcisku palca & \texttt{FingerprintIdentificationView}, \texttt{FingerprintIdentificationViewModel}, \texttt{FingerprintRecognitionService} & Obsługa próby identyfikacji osoby na podstawie obrazu odcisku palca i zapisanego szablonu biometrycznego. \\
+    \hline
+    Obsługa \newline obrazów & \texttt{ImageProcessingService}, \texttt{CameraService} & Przygotowanie danych obrazowych oraz obsługa obrazu pochodzącego z pliku lub kamery. \\
+    \hline
+    Historia prób & \texttt{HistoryView}, \texttt{HistoryViewModel}, \texttt{IdentificationRepository} & Zapis i odczyt informacji o wykonanych próbach identyfikacji. \\
+    \hline
+    Ustawienia systemowe & \texttt{SettingsView}, \texttt{SettingsViewModel}, \texttt{SystemSettingsService} & Obsługa parametrów decyzyjnych wykorzystywanych przez moduły biometryczne. \\
+    \hline
+    Dostęp do danych & \texttt{DatabaseConnection}, \texttt{PersonRepository}, \texttt{FaceTemplateRepository}, \texttt{FingerprintTemplateRepository}, \texttt{BiometricSampleRepository} & Komunikacja z bazą danych SQL Server oraz wykonywanie operacji zapisu, odczytu, aktualizacji i usuwania danych. \\
+    \hline
+    Modele \newline danych & \texttt{Person}, \texttt{FaceIdentificationResult}, \texttt{FingerprintIdentificationResult}, \texttt{BiometricDecisionSettings}, \texttt{IdentificationAttempt} & Reprezentacja danych przekazywanych między widokami, serwisami i repozytoriami. \\
+    \hline
+    Nawigacja i komendy & \texttt{MainViewModel}, \texttt{RelayCommand} & Przełączanie głównych widoków aplikacji oraz obsługa akcji wykonywanych przez operatora. \\
+    \hline
+
+    \caption{Najważniejsze moduły implementacyjne aplikacji IdentityCore}
+    \label{tab:moduly-implementacyjne}
+\end{xltabular}
+
+W przedstawionym podziale widoki odpowiadają za prezentację danych, modele widoków za obsługę stanu ekranu i reakcji na działania operatora, serwisy za logikę operacji, a repozytoria za kontakt z bazą danych. Dzięki temu poszczególne funkcje aplikacji są rozdzielone i łatwiejsze do utrzymania.
+
+\section{Implementacja rejestracji osoby}
+
+Rejestracja osoby została zrealizowana w module rejestru osób. Za obsługę tego obszaru odpowiadają przede wszystkim \texttt{PersonRegistryView}, \texttt{PersonRegistryViewModel} oraz \texttt{PersonRepository}. Widok udostępnia formularz danych osoby, model widoku przechowuje aktualnie wybrany profil i obsługuje akcje operatora, a repozytorium wykonuje zapis i odczyt danych z bazy.
+
+Dodanie nowej osoby odbywa się w metodzie \texttt{AddNewPerson}. Tworzony jest nowy obiekt \texttt{Person}, któremu nadawany jest kod osoby, podstawowe dane domyślne, status oraz puste ścieżki do obrazów. Następnie obiekt jest przekazywany do metody \texttt{Add} w klasie \texttt{PersonRepository}. Po zapisie do bazy metoda zwraca identyfikator nowo utworzonego rekordu, który jest przypisywany do obiektu w aplikacji.
+
+Edycja osoby jest realizowana przez metodę \texttt{SaveChanges}. Jeżeli istnieje aktualnie wybrany profil, model widoku przekazuje go do metody \texttt{Update} w \texttt{PersonRepository}. Po aktualizacji dane są ponownie wczytywane, aby lista osób i szczegóły wybranego profilu odpowiadały stanowi zapisanemu w bazie danych.
+
+Podstawowa kontrola poprawności operacji polega między innymi na sprawdzaniu, czy wybrano osobę, na której można wykonać daną akcję. Dotyczy to zapisu zmian, usuwania profilu, ustawiania zdjęcia profilowego oraz rejestrowania danych biometrycznych. Kompletność pól wymaganych jest dodatkowo wymuszana przez model danych i strukturę bazy, której szczegóły opisano w rozdziale~\ref{chap:baza-danych}.
+
+W aplikacji zaimplementowano również obsługę zdjęcia profilowego. Metoda \texttt{SetProfileImage} umożliwia wybór pliku graficznego, skopiowanie go do lokalnego katalogu roboczego aplikacji tworzonego w katalogu uruchomieniowym programu, zapisanie ścieżki w polu \texttt{ProfileImagePath} oraz aktualizację osoby w bazie danych. Usunięcie zdjęcia profilowego realizuje metoda \texttt{RemoveProfileImage}, która czyści ścieżkę i zapisuje zmieniony profil.
+
+\newpage
+
+Dane biometryczne osoby są powiązane z profilem osoby, ale nie są zapisywane jako zwykłe pola formularza opisowego. Rejestracja próbek twarzy i odcisków palców jest obsługiwana przez osobne metody oraz repozytoria biometryczne, między innymi \texttt{FaceTemplateRepository}, \texttt{FingerprintTemplateRepository} i \texttt{BiometricSampleRepository}. Dzięki temu profil osoby pozostaje oddzielony od danych technicznych używanych w procesie identyfikacji.
+
+\section{Implementacja procesu biometrycznego}
+
+Proces biometryczny w aplikacji \textit{IdentityCore} został zaimplementowany jako przepływ danych pomiędzy modelem widoku, usługami biometrycznymi, repozytoriami oraz obiektami wynikowymi. Widok i model widoku odpowiadają za przyjęcie danych od operatora i pokazanie rezultatu, natomiast właściwa analiza biometryczna odbywa się w serwisach. Szczegóły metod identyfikacji zostały opisane w rozdziale~\ref{chap:metody-algorytmy}; w tym miejscu przedstawiono ich praktyczne użycie w kodzie aplikacji.
+
+\subsection{Implementacja identyfikacji twarzy}
+
+Identyfikacja twarzy rozpoczyna się w \texttt{FaceIdentificationViewModel}. Model widoku obsługuje komendy związane z kamerą, wczytaniem obrazu, rozpoczęciem identyfikacji, zapisem próby oraz otwarciem profilu osoby. Obraz wejściowy może pochodzić z pliku wskazanego przez operatora albo z kamery obsługiwanej przez \texttt{CameraService}. W przypadku kamery aplikacja pobiera klatkę, zapisuje ją jako plik wejściowy i dopiero taki obraz przekazuje do dalszej analizy.
+
+Po uruchomieniu identyfikacji \texttt{FaceIdentificationViewModel} wywołuje usługę \texttt{FaceRecognitionService}. Model widoku nie wykonuje samodzielnie porównywania twarzy; jego zadaniem jest przekazanie ścieżki obrazu, obsługa stanu analizy, odebranie wyniku i przepisanie go do właściwości prezentowanych w interfejsie.
+
+Pierwszym ważnym etapem po stronie kodu jest przygotowanie obrazu twarzy. Odpowiada za to \texttt{ImageProcessingService}. Fragment pokazujący przygotowanie próbki twarzy przedstawiono na listingu~\ref{lst:impl-face-prepare-face}.
+
+\lstinputlisting[
+    language={[Sharp]C},
+    caption={Przygotowanie obrazu twarzy przed analizą},
+    label={lst:impl-face-prepare-face}
+]{src/face_prepare_face.cs}
+
+W pokazanym fragmencie aplikacja nie przekazuje całego kadru bezpośrednio do modelu. Najpierw wykrywa twarz, przygotowuje wycinek obrazu, sprawdza jego użyteczność, ocenia jakość i skaluje próbkę do wymaganego rozmiaru. Jeżeli nie uda się uzyskać poprawnego obrazu twarzy, dalsza identyfikacja nie jest wykonywana.
+
+Po przygotowaniu próbki wykorzystywany jest \texttt{FaceEmbeddingService}. To w tej usłudze aplikacja używa pliku \texttt{arcface.onnx} i zamienia przygotowany obraz na reprezentację używaną później przy porównywaniu. Fragment tej części implementacji przedstawiono na listingu~\ref{lst:impl-face-embedding-onnx}.
+
+\lstinputlisting[
+    language={[Sharp]C},
+    caption={Użycie modelu arcface.onnx do wygenerowania embeddingu twarzy},
+    label={lst:impl-face-embedding-onnx}
+]{src/face_embedding_onnx.cs}
+
+Listing pokazuje miejsce, w którym aplikacja odnajduje model \texttt{arcface.onnx}, tworzy potok ONNX i uruchamia predykcję dla przygotowanego obrazu twarzy. Wynikiem działania tej usługi jest reprezentacja przekazywana dalej do \texttt{FaceRecognitionService}.
+
+Kolejnym etapem jest pobranie zapisanych wzorców twarzy i utworzenie rankingu kandydatów. Wykorzystywane są tutaj \texttt{FaceTemplateRepository} oraz \texttt{PersonRepository}. Fragment odpowiedzialny za ten etap przedstawiono na listingu~\ref{lst:impl-face-candidate-selection}.
+
+\lstinputlisting[
+    language={[Sharp]C},
+    caption={Wybór kandydatów podczas identyfikacji twarzy},
+    label={lst:impl-face-candidate-selection}
+]{src/face_candidate_selection.cs}
+
+W tym fragmencie aplikacja pobiera zapisane szablony twarzy, łączy je z osobami z rejestru, odczytuje zapisane reprezentacje i porównuje je z próbką wejściową. Wyniki są grupowane według osoby, ponieważ jedna osoba może posiadać więcej niż jeden zapisany szablon. Następnie tworzony jest ranking najlepszych kandydatów.
+
+Samo porównanie dwóch reprezentacji twarzy zostało wydzielone do osobnego fragmentu. Listing~\ref{lst:impl-cosine-similarity} pokazuje implementację obliczenia wyniku podobieństwa wykorzystywanego podczas budowania rankingu kandydatów.
+
+\lstinputlisting[
+    language={[Sharp]C},
+    caption={Obliczanie podobieństwa cosinusowego dla embeddingów twarzy},
+    label={lst:impl-cosine-similarity}
+]{src/cosine_similarity.cs}
+
+W pokazanym fragmencie kod sprawdza poprawność porównywanych wektorów, oblicza wynik podobieństwa i ogranicza go do zakresu procentowego. Wartość zwrócona przez tę metodę jest później używana przy wyborze najlepszego kandydata i ocenie, czy wynik spełnia wymagania decyzyjne.
+
+Po utworzeniu listy kandydatów \texttt{FaceRecognitionService} wybiera najlepszy wynik i porównuje go z drugim kandydatem. W tym miejscu stosowane są ustawienia decyzyjne pobrane z \texttt{SystemSettingsService}, czyli próg dopasowania oraz minimalny margines. Jeżeli w bazie nie ma wzorców twarzy, nie uda się odczytać poprawnych danych, na obrazie nie wykryto twarzy albo wynik jest zbyt słaby, aplikacja zwraca decyzję o braku dopasowania wraz z komunikatem opisującym problem.
+
+\subsection{Implementacja identyfikacji odcisku palca}
+
+Identyfikacja odcisku palca rozpoczyna się w \texttt{FingerprintIdentificationViewModel}. Model widoku obsługuje wczytanie obrazu odcisku z pliku, rozpoczęcie analizy, zapis próby oraz otwarcie profilu osoby. Po wybraniu pliku ścieżka obrazu jest zapisywana jako \texttt{InputFilePath}, a następnie przekazywana do \texttt{FingerprintRecognitionService}.
+
+Właściwa logika biometryczna znajduje się w \texttt{FingerprintRecognitionService}. Pierwszym kluczowym etapem jest utworzenie szablonu próbki wejściowej. Fragment odpowiedzialny za zamianę obrazu odcisku na dane szablonu przedstawiono na listingu~\ref{lst:impl-fingerprint-template-creation}.
+
+\lstinputlisting[
+    language={[Sharp]C},
+    caption={Utworzenie szablonu odcisku palca na podstawie obrazu wejściowego},
+    label={lst:impl-fingerprint-template-creation}
+]{src/fingerprint_template_creation.cs}
+
+W pokazanym fragmencie aplikacja sprawdza, czy plik obrazu istnieje, odczytuje jego zawartość i tworzy szablon próbki wejściowej. Jeżeli plik nie zostanie znaleziony, nie można go odczytać albo szablon jest pusty, metoda zwraca wynik niepowodzenia z komunikatem.
+
+\newpage
+
+Po utworzeniu szablonu próbki aplikacja pobiera zapisane szablony odcisków palców przez \texttt{FingerprintTemplateRepository} oraz dane osób przez \texttt{PersonRepository}. Następnie próbka wejściowa jest porównywana z kolejnymi wzorcami zapisanymi w bazie. Fragment tej części procesu przedstawiono na listingu~\ref{lst:impl-fingerprint-matching-flow}.
+
+\lstinputlisting[
+    language={[Sharp]C},
+    caption={Porównywanie próbki odcisku palca z zapisanymi szablonami},
+    label={lst:impl-fingerprint-matching-flow}
+]{src/fingerprint_matching_flow.cs}
+
+Listing pokazuje, jak aplikacja tworzy matcher dla próbki wejściowej, przechodzi po zapisanych szablonach, pomija rekordy bez osoby albo bez danych szablonu i wylicza wynik dopasowania. Dla każdego poprawnego porównania tworzony jest obiekt kandydata zawierający dane osoby oraz wynik podobieństwa.
+
+Po zebraniu wyników aplikacja wybiera najlepszych kandydatów i ocenia, czy wynik może zostać zaakceptowany. Fragment logiki decyzyjnej przedstawiono na listingu~\ref{lst:impl-fingerprint-decision-threshold}.
+
+\lstinputlisting[
+    language={[Sharp]C},
+    caption={Decyzja identyfikacyjna na podstawie progu i marginesu dopasowania},
+    label={lst:impl-fingerprint-decision-threshold}
+]{src/fingerprint_decision_threshold.cs}
+
+W tym fragmencie najlepszy wynik jest porównywany z wymaganym progiem dopasowania, a następnie sprawdzana jest różnica względem drugiego kandydata. Jeżeli wynik jest zbyt niski albo przewaga nad kolejnym kandydatem jest niewystarczająca, próba nie zostaje uznana za dopasowanie. Do modelu widoku trafia wtedy wynik negatywny wraz z informacją diagnostyczną.
+
+Wynik działania \texttt{FingerprintRecognitionService} jest przekazywany z powrotem do \texttt{FingerprintIdentificationViewModel}. Model widoku aktualizuje dane najlepszego kandydata, wynik, decyzję, komunikat, próg, margines oraz listę kandydatów. Dzięki temu warstwa interfejsu otrzymuje gotowy rezultat próby bez wykonywania logiki porównywania w samym widoku.
+
+\subsection{Zapis wyniku identyfikacji w historii}
+
+Po zakończeniu próby identyfikacji aplikacja przygotowuje obiekt \texttt{IdentificationAttempt}. Jest on tworzony po stronie modelu widoku na podstawie wyniku zwróconego przez serwis biometryczny. Do obiektu trafiają dane opisujące próbę, między innymi typ biometrii, ścieżka pliku wejściowego, najlepiej dopasowana osoba, wynik podobieństwa, decyzja, operator, status oraz data wykonania próby.
+
+Sam zapis do bazy danych wykonuje \texttt{IdentificationRepository}. Fragment metody zapisującej próbę identyfikacji przedstawiono na listingu~\ref{lst:impl-identification-add-attempt}.
+
+\lstinputlisting[
+    language={[Sharp]C},
+    caption={Zapis próby identyfikacji do historii},
+    label={lst:impl-identification-add-attempt}
+]{src/identification_add_attempt.cs}
+
+W pokazanym fragmencie repozytorium tworzy polecenie SQL i przekazuje do niego wartości z obiektu \texttt{IdentificationAttempt}. Po wykonaniu zapytania zwracany jest identyfikator nowo zapisanego rekordu. Mechanizm ten pozwala później odtworzyć wykonane próby i wykorzystać je podczas analizy skuteczności opisanej w rozdziale testowym.
+
+\section{Implementacja logowania i autoryzacji}
+
+Logowanie operatora zostało zrealizowane jako prosta część techniczna aplikacji. Użytkownik najpierw trafia do okna \texttt{LoginWindow}, gdzie podaje dane logowania. Dopiero po poprawnym uwierzytelnieniu otwierana jest główna część systemu.
+
+Za sprawdzenie danych odpowiada \texttt{AuthenticationService}. Usługa korzysta z \texttt{UserRepository}, które wyszukuje aktywnego użytkownika w bazie danych na podstawie nazwy użytkownika. Jeżeli użytkownik nie istnieje, jest nieaktywny albo hasło nie pasuje do wartości zapisanej w bazie, logowanie kończy się niepowodzeniem.
+
+Fragment logiki sprawdzania danych logowania przedstawiono na listingu~\ref{lst:impl-authentication-login}.
+
+\lstinputlisting[
+    language={[Sharp]C},
+    caption={Sprawdzenie danych logowania operatora},
+    label={lst:impl-authentication-login}
+]{src/authentication_login.cs}
+
+W pokazanym fragmencie metoda odrzuca puste dane, pobiera aktywnego użytkownika z bazy i porównuje podane hasło z wartością zapisaną w rekordzie użytkownika. Po poprawnym sprawdzeniu ustawiany jest aktualny użytkownik aplikacji.
+
+W aktualnej postaci logowanie ma charakter demonstracyjny i techniczny. W kodzie hasło jest porównywane z wartością przechowywaną w polu \texttt{PasswordHash}, ale nie zaimplementowano rozbudowanego mechanizmu bezpieczeństwa typowego dla systemów produkcyjnych. Jest to wystarczające dla lokalnej aplikacji projektowej, której celem jest prezentacja działania systemu identyfikacji biometrycznej.
+
+Dane konta testowego oraz instrukcja uruchomienia aplikacji nie są rozwijane w tym miejscu, ponieważ zostaną opisane w rozdziale dotyczącym uruchomienia projektu.
+
+\section{Operacje CRUD}
+
+Operacje CRUD są wykonywane głównie w module rejestru osób. Klasa \texttt{PersonRepository} zawiera metody \texttt{GetAll}, \texttt{Add}, \texttt{Update}, \texttt{GetById} oraz \texttt{Delete}. Dzięki temu aplikacja może odczytywać listę osób, dodawać nowe profile, aktualizować dane, pobierać pojedynczą osobę oraz usuwać rekord osoby z bazy.
+
+Odczyt listy osób odbywa się w metodzie \texttt{LoadPersons} w \texttt{PersonRegistryViewModel}. Metoda czyści aktualną kolekcję \texttt{Persons}, pobiera dane przez \texttt{PersonRepository.GetAll}, a następnie uzupełnia kolekcję używaną przez widok. Po wczytaniu danych aktualizowane są również liczniki osób i danych biometrycznych.
+
+Dodanie osoby jest realizowane przez \texttt{AddNewPerson}, natomiast zapis zmian przez \texttt{SaveChanges}. Usuwanie profilu obsługuje metoda \texttt{DeleteSelectedPerson}, która wywołuje \texttt{PersonRepository.Delete}, usuwa obiekt z kolekcji oraz aktualizuje wybór aktualnej osoby.
+
+Operacje związane z ustawieniami systemowymi są realizowane przez \texttt{SettingsViewModel} oraz \texttt{SystemSettingsService}. Pozwalają one odczytywać i zapisywać wartości parametrów decyzyjnych bez modyfikowania kodu aplikacji.
+
+Historia prób identyfikacji jest obsługiwana przez \texttt{IdentificationRepository}. Repozytorium zawiera metody służące do pobierania prób oraz zapisywania nowej próby identyfikacji. Dzięki temu wyniki pracy modułów biometrycznych nie znikają po zakończeniu operacji, lecz są utrwalane w bazie danych.
+
+W tym rozdziale nie przedstawiono pełnych zapytań SQL dla każdej operacji, ponieważ struktura bazy i skrypty zostały omówione w rozdziale~\ref{chap:baza-danych}. W kontekście implementacji istotne jest to, że operacje na danych są wykonywane przez repozytoria, a nie bezpośrednio w widokach WPF.
+
+\section{Nawigacja i przepływ danych w aplikacji}
+
+Nawigacja w aplikacji jest obsługiwana przez \texttt{MainViewModel}. Klasa ta przechowuje aktualnie wybrany model widoku w polu \texttt{CurrentViewModel}. Na tej podstawie główne okno aplikacji wyświetla odpowiedni obszar systemu.
+
+Przełączanie widoków odbywa się przez komendy, między innymi \texttt{ShowDashboardCommand}, \texttt{ShowPersonRegistryCommand}, \texttt{ShowFaceIdentificationCommand}, \newline \texttt{ShowFingerprintIdentificationCommand}, \texttt{ShowHistoryCommand} oraz \newline \texttt{ShowSettingsCommand}. Każda z nich ustawia właściwy model widoku, aktywny klucz strony, tytuł oraz podtytuł aktualnego ekranu.
+
+W aplikacji wykorzystywana jest klasa \texttt{RelayCommand}, która pozwala powiązać akcje interfejsu z metodami modeli widoków. Dzięki temu logika działania nie musi być umieszczana bezpośrednio w plikach XAML. Widok wywołuje komendę, a model widoku wykonuje odpowiednią operację.
+
+Przepływ danych polega na tym, że widok prezentuje dane z modelu widoku, a model widoku korzysta z serwisów i repozytoriów. Po wykonaniu operacji dane są odświeżane, na przykład przez ponowne wczytanie listy osób albo aktualizację wyników identyfikacji. Komunikaty zwrotne są przekazywane przez właściwości takie jak \texttt{ErrorMessage} i \texttt{StatusMessage}.
+
+Z poziomu \texttt{MainViewModel} możliwe jest również otwarcie profilu konkretnej osoby w rejestrze. Metoda \texttt{OpenPersonProfile} przełącza aplikację do rejestru osób i wskazuje wybrany profil na podstawie identyfikatora.

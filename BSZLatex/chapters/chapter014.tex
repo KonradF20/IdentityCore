@@ -1,0 +1,99 @@
+\chapter{Instrukcja uruchomienia projektu}
+\label{chap:instrukcja-uruchomienia}
+
+\section{Wymagania systemowe}
+
+Do uruchomienia aplikacji \textit{IdentityCore} wymagane jest lokalne stanowisko z systemem Windows oraz środowiskiem umożliwiającym kompilację aplikacji desktopowej WPF/.NET. Projekt był przygotowywany i uruchamiany w środowisku Visual Studio 2026 w wersji 18.5.2, z projektem docelowym ustawionym na \texttt{net10.0-windows}.
+
+Aplikacja korzysta również z lokalnej bazy danych SQL Server oraz modelu \texttt{arcface.onnx}, który jest przechowywany w projekcie jako plik zarządzany przez Git LFS. Z tego powodu samo pobranie repozytorium nie jest wystarczające, jeżeli pliki LFS nie zostaną pobrane poprawnie.
+
+\renewcommand{\arraystretch}{1.15}
+\begin{xltabular}{\textwidth}{|
+    >{\RaggedRight\arraybackslash}p{4.5cm}|
+    >{\RaggedRight\arraybackslash}X|}
+
+    \hline
+    \textbf{Element} & \textbf{Wymaganie} \\
+    \hline
+    \endfirsthead
+
+    \hline
+    \textbf{Element} & \textbf{Wymaganie} \\
+    \hline
+    \endhead
+
+    System operacyjny & Windows z obsługą aplikacji desktopowych .NET/WPF. \\
+    \hline
+    Środowisko programistyczne & Visual Studio 2026, wersja 18.5.2. \\
+    \hline
+    Platforma .NET & .NET 10, projekt docelowy \texttt{net10.0-windows}. \\
+    \hline
+    Baza danych & SQL Server oraz SQL Server Management Studio. \\
+    \hline
+    Repozytorium & Git oraz Git LFS do pobrania kodu i dużych plików projektu. \\
+    \hline
+    Model twarzy & Plik \texttt{IdentityCore.App/MLModels/arcface.onnx}. \\
+    \hline
+
+    \caption{Podstawowe wymagania potrzebne do uruchomienia projektu}
+    \label{tab:wymagania-uruchomieniowe}
+\end{xltabular}
+
+\section{Konfiguracja środowiska}
+
+Pierwszym krokiem jest pobranie projektu z repozytorium. Ponieważ projekt wykorzystuje plik modelu \texttt{arcface.onnx}, należy upewnić się, że na stanowisku zainstalowany jest Git LFS. Po sklonowaniu repozytorium trzeba pobrać pliki zarządzane przez LFS.
+
+\begin{lstlisting}[language=bash, caption={Przykładowe pobranie projektu i plików Git LFS}, label={lst:git-lfs-pobranie}]
+git clone https://github.com/KonradF20/IdentityCore.git
+cd IdentityCore
+git lfs pull
+\end{lstlisting}
+
+Po wykonaniu tych poleceń należy sprawdzić, czy w projekcie znajduje się plik \texttt{IdentityCore.App/MLModels/arcface.onnx}. Brak tego pliku uniemożliwi poprawne działanie modułu identyfikacji twarzy.
+
+Następnie projekt należy otworzyć w Visual Studio. Po otwarciu rozwiązania środowisko powinno przywrócić pakiety NuGet automatycznie. Jeżeli tak się nie stanie, należy użyć opcji przywrócenia pakietów z poziomu Visual Studio albo wykonać polecenie \texttt{dotnet restore}. W ustawieniach projektu należy również sprawdzić, czy aplikacja jest kompilowana dla platformy \texttt{net10.0-windows}.
+
+\section{Konfiguracja bazy danych}
+
+Aplikacja korzysta z lokalnej bazy SQL Server. Przed uruchomieniem programu należy upewnić się, że usługa SQL Server działa, a następnie otworzyć SQL Server Management Studio i połączyć się z właściwą instancją serwera.
+
+Do przygotowania bazy od podstaw służy skrypt \texttt{create\_database.sql}. Skrypt tworzy bazę \texttt{IdentityCoreDb}, tabele wymagane przez aplikację, relacje, indeksy oraz dane startowe potrzebne do pracy systemu. Skrypt należy uruchomić w SQL Server Management Studio.
+
+Po wykonaniu skryptu trzeba sprawdzić, czy aplikacja łączy się z bazą danych. Jeżeli połączenie nie działa, należy dostosować connection string zapisany w projekcie do lokalnej konfiguracji SQL Server, w szczególności nazwę instancji serwera oraz nazwę bazy danych.
+
+Po stronie osoby uruchamiającej projekt konieczne jest sprawdzenie, czy connection string wskazuje na lokalną instancję SQL Server oraz bazę \texttt{IdentityCoreDb}. W przypadku innej nazwy instancji SQL Server należy dostosować dane połączenia w projekcie do konfiguracji danego stanowiska.
+
+\section{Uruchomienie aplikacji}
+
+Zalecanym sposobem uruchomienia projektu jest użycie Visual Studio. Po otwarciu rozwiązania należy ustawić projekt \texttt{IdentityCore.App} jako projekt startowy, a następnie skompilować rozwiązanie. Jeżeli kompilacja zakończy się poprawnie, aplikację można uruchomić przyciskiem startowym w Visual Studio.
+
+Po uruchomieniu powinien pojawić się ekran logowania. Po zalogowaniu operator może sprawdzić podstawowe moduły aplikacji: panel główny, rejestr osób, identyfikację twarzy, identyfikację odcisku palca, historię prób oraz ustawienia systemowe.
+
+Projekt można również uruchomić z poziomu terminala, o ile stanowisko ma poprawnie skonfigurowane środowisko .NET i znajduje się w katalogu projektu.
+
+\begin{lstlisting}[language=bash, caption={Przykładowe uruchomienie aplikacji z poziomu katalogu projektu}, label={lst:dotnet-run}]
+dotnet restore
+dotnet build
+dotnet run --project IdentityCore.App
+\end{lstlisting}
+
+Jeżeli struktura katalogów w lokalnej kopii różni się od powyższego przykładu, ścieżkę po parametrze \texttt{-{}-project} należy dopasować do lokalizacji pliku \texttt{IdentityCore.App.csproj}.
+
+\section{Dane testowe i konta testowe}
+
+Do paczki projektu nie dołączono pełnego zestawu danych biometrycznych używanego podczas testów. Wynika to z charakteru danych przetwarzanych przez aplikację: obrazy twarzy oraz odcisków palców mogą być traktowane jako dane wrażliwe i nie powinny być udostępniane bez wyraźnej potrzeby. Testy opisane w pracy zostały wykonane na lokalnie przygotowanych próbkach zespołu.
+
+W celu ponownego sprawdzenia działania aplikacji osoba uruchamiająca projekt powinna przygotować własne dane testowe. Dla modułu twarzy można wykorzystać obraz z kamery albo plik graficzny przedstawiający twarz. Dla modułu odcisku palca należy przygotować obraz odcisku zapisany w formacie obsługiwanym przez aplikację, na przykład PNG, JPG lub BMP. Dane powinny zostać podzielone na próbki referencyjne dodawane do profilu osoby oraz próbki wejściowe wykorzystywane później do identyfikacji.
+
+Zalecany sposób przygotowania prostego zestawu testowego jest następujący: najpierw należy utworzyć w rejestrze osobę testową, następnie zarejestrować dla niej próbkę twarzy albo odcisku palca, a dopiero później uruchomić identyfikację na drugiej próbce tej samej osoby. Do sprawdzenia przypadku negatywnego można użyć próbki innej osoby, która nie została dodana do rejestru. Dzięki temu możliwe jest sprawdzenie zarówno dopasowania, jak i braku dopasowania.
+
+Pliki robocze generowane lub kopiowane przez aplikację są zapisywane lokalnie w katalogu uruchomieniowym programu, czyli w strukturze tworzonej podczas kompilacji pod katalogiem \texttt{bin}. Dokładna ścieżka może zależeć od trybu uruchomienia, konfiguracji kompilacji oraz ustawień środowiska Visual Studio. Z tego powodu po pierwszym uruchomieniu aplikacji warto sprawdzić katalog wynikowy projektu \texttt{IdentityCore.App}, w szczególności podkatalogi utworzone obok pliku wykonywalnego.
+
+Do zalogowania w środowisku demonstracyjnym wykorzystywane jest konto testowe:
+
+\begin{lstlisting}[caption={Dane konta testowego operatora}, label={lst:konto-testowe}]
+login: admin
+haslo: admin
+\end{lstlisting}
+
+Po zalogowaniu można sprawdzić działanie podstawowych modułów: przejrzeć rejestr osób, dodać osobę testową, zarejestrować próbki biometryczne, uruchomić identyfikację twarzy lub odcisku palca, zapisać próbę do historii oraz sprawdzić wartości progów w ustawieniach systemu.

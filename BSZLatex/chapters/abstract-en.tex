@@ -1,0 +1,12 @@
+\chapter*{Abstract}
+\label{cha:abstract-en}
+
+This project presents the design and implementation of \textit{IdentityCore}, a local biometric identification system for persons. The system was developed as a desktop application using WPF/.NET and a local SQL Server database. The main objective of the project was to create a prototype that supports person registration, biometric data management, identification attempts, result presentation and identification history analysis.
+
+\bigskip
+
+The application uses two biometric modalities: face identification and fingerprint identification. The face module uses the \texttt{arcface.onnx} model to generate a numerical representation of facial features, which is then compared with previously stored templates. The fingerprint module uses the SourceAFIS library to create and compare biometric fingerprint templates. The system also applies decision thresholds and a margin between the best and the second-best candidate, allowing uncertain or low-quality matches to be rejected.
+
+\bigskip
+
+The project includes a user interface with operator login, dashboard, person registry, face identification view, fingerprint identification view, identification history and system settings. The performed tests confirmed the operation of the basic scenarios: successful matching and no-match decisions for both biometric modules. The results should be treated as a demonstration of a prototype rather than a full statistical validation of a biometric system. Nevertheless, the project demonstrates a complete workflow of a biometric identification application and indicates possible directions for further development, including improved security, extended testing and the introduction of liveness detection mechanisms.

@@ -1,0 +1,38 @@
+\chapter{Podsumowanie i wnioski końcowe}
+\label{chap:podsumowanie}
+
+\section{Ocena realizacji założeń}
+
+Celem projektu było przygotowanie lokalnej aplikacji desktopowej umożliwiającej identyfikację osób na podstawie danych biometrycznych twarzy oraz odcisku palca. Założenie to zostało zrealizowane w postaci aplikacji \textit{IdentityCore}, która łączy rejestr osób, obsługę próbek biometrycznych, proces identyfikacji, historię prób oraz ustawienia parametrów decyzyjnych.
+
+W projekcie udało się przygotować spójny system, w którym osoba może zostać dodana do rejestru, uzupełniona o dane profilowe i powiązana z materiałem biometrycznym. Aplikacja pozwala następnie uruchomić identyfikację twarzy lub odcisku palca, zaprezentować wynik operatorowi oraz zapisać próbę w historii. Zrealizowano również panel główny, ekran logowania, widok ustawień oraz widok historii, dzięki czemu aplikacja nie ogranicza się wyłącznie do pojedynczego algorytmu, ale tworzy pełniejszy prototyp systemu identyfikacji.
+
+Założenia projektowe zostały więc spełnione na poziomie demonstracyjnym. System pokazuje kompletny przepływ pracy: od rejestracji osoby, przez przygotowanie danych biometrycznych, po wykonanie próby identyfikacji i zapis wyniku.
+
+\section{Napotkane problemy}
+
+Największe trudności dotyczyły integracji części biometrycznej z aplikacją desktopową i bazą danych. W przypadku identyfikacji twarzy istotnym problemem było poprawne przygotowanie obrazu przed przekazaniem go do modelu. Należało zadbać o wykrycie twarzy, przygotowanie odpowiedniego wycinka obrazu, wygenerowanie reprezentacji twarzy oraz porównanie jej z zapisanymi wzorcami.
+
+W przypadku odcisków palców problemem było przygotowanie takiego sposobu pracy, który pozwalałby analizować obrazy zapisane w plikach. Ponieważ projekt nie opierał się na pełnej integracji ze skanerem linii papilarnych, konieczne było przyjęcie rozwiązania polegającego na wczytywaniu obrazów odcisków. Pozwoliło to zrealizować moduł identyfikacji, ale jednocześnie ujawniło ograniczenia prototypu.
+
+\section{Ocena skuteczności rozwiązania}
+
+Przeprowadzone testy pokazały, że aplikacja działa zgodnie z założeniami w podstawowych scenariuszach. System potrafił wskazać osobę zapisaną w bazie oraz odrzucić próbkę, której wynik znajdował się poniżej przyjętego progu decyzyjnego. Dotyczyło to zarówno modułu identyfikacji twarzy, jak i modułu identyfikacji odcisku palca.
+
+Wyniki należy jednak interpretować ostrożnie. Testy miały charakter projektowy i zostały wykonane na niewielkim zbiorze danych. Nie można na ich podstawie traktować systemu jako rozwiązania produkcyjnego ani wyciągać pełnych wniosków statystycznych dotyczących skuteczności biometrycznej. Aplikacja spełnia natomiast rolę prototypu pokazującego praktyczne działanie procesu identyfikacji.
+
+Istotne znaczenie dla skuteczności mają jakość danych wejściowych, liczba zapisanych wzorców, wartości progów decyzyjnych oraz margines między najlepszymi kandydatami. W obecnej wersji system sprawdza te warunki i potrafi odrzucić próbkę, jeżeli wynik jest zbyt niski lub nie spełnia przyjętych kryteriów.
+
+\section{Możliwości zastosowania systemu}
+
+\textit{IdentityCore} może służyć jako demonstracyjny system identyfikacji osób w środowisku lokalnym. Projekt dobrze pokazuje, jak można połączyć rejestr osób, dane biometryczne, bazę danych oraz aplikację desktopową w jednym narzędziu. 
+
+Aplikacja może znaleźć zastosowanie w sytuacjach, w których potrzebne jest pokazanie zasady działania identyfikacji biometrycznej bez wdrażania pełnego systemu produkcyjnego. Przykładem może być prezentacja działania rozpoznawania twarzy, porównywania odcisków palców, zapisu historii prób oraz wpływu parametrów decyzyjnych na wynik.
+
+Należy podkreślić, że system nie posiada pełnych mechanizmów bezpieczeństwa wymaganych w rozwiązaniach produkcyjnych, takich jak wykrywanie żywotności próbki, zaawansowana ochrona szablonów biometrycznych czy rozbudowane zarządzanie uprawnieniami.
+
+\section{Kierunki dalszego rozwoju}
+
+Dalszy rozwój systemu powinien obejmować przede wszystkim zwiększenie bezpieczeństwa i odporności modułów biometrycznych. W przypadku identyfikacji twarzy ważnym kierunkiem byłoby dodanie mechanizmu wykrywania żywotności próbki, aby ograniczyć ryzyko użycia zdjęcia lub obrazu wyświetlonego na ekranie. W module odcisku palca warto rozważyć bezpośrednią integrację ze skanerem, zamiast opierania procesu wyłącznie na wczytywaniu plików graficznych.
+
+Kolejnym kierunkiem rozwoju jest rozszerzenie testów na większym i bardziej zróżnicowanym zbiorze danych. Pozwoliłoby to dokładniej ocenić zachowanie progów decyzyjnych, liczbę błędnych akceptacji oraz liczbę błędnych odrzuceń. W przyszłości można również rozbudować ochronę danych, między innymi przez szyfrowanie szablonów biometrycznych, lepsze zabezpieczenie logowania operatora oraz dokładniejsze rejestrowanie zdarzeń administracyjnych.

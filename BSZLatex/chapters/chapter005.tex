@@ -1,0 +1,62 @@
+\chapter{Zastosowane metody i algorytmy}
+\label{chap:metody-algorytmy}
+
+\section{Przygotowanie danych wejściowych}
+
+W systemie \textit{IdentityCore} dane wejściowe mają postać obrazów. W zależności od typu identyfikacji analizowany jest obraz twarzy albo obraz odcisku palca. Oba typy danych muszą zostać przygotowane tak, aby możliwe było utworzenie reprezentacji biometrycznej porównywanej później z danymi zapisanymi w systemie.
+
+W przypadku twarzy duże znaczenie ma jakość kadru. Na skuteczność identyfikacji wpływają przede wszystkim oświetlenie, ostrość, kąt ustawienia głowy, widoczność twarzy oraz elementy zasłaniające. Obraz powinien zawierać możliwie wyraźny obszar twarzy, ponieważ to on stanowi podstawę dalszej analizy.
+
+W przypadku odcisku palca jakość danych zależy od czytelności linii papilarnych. Znaczenie mają między innymi kompletność odcisku, kontrast, zabrudzenia, rozmazanie oraz sposób przyłożenia palca. Niepełny lub słabo widoczny odcisk może utrudnić utworzenie poprawnego szablonu i obniżyć skuteczność identyfikacji.
+
+Przygotowanie danych wejściowych jest więc istotnym etapem procesu biometrycznego. Jakość próbki wpływa bezpośrednio na wynik porównania, dlatego dane powinny być pozyskiwane w możliwie powtarzalnych warunkach.
+
+\section{Metoda identyfikacji twarzy}
+
+Identyfikacja twarzy w projekcie opiera się na porównywaniu numerycznych reprezentacji cech twarzy. Dane wejściowe stanowi obraz zawierający twarz osoby. Przed porównaniem obraz jest przygotowywany tak, aby dalsza analiza dotyczyła głównie obszaru twarzy, a nie całego kadru. Ogranicza to wpływ tła i elementów niezwiązanych z identyfikowaną osobą.
+
+Do utworzenia reprezentacji twarzy wykorzystano model ArcFace zapisany w formacie ONNX \cite{arcface, onnx}. Model przekształca obraz twarzy do postaci wektora cech, określanego jako embedding. Nie jest on obrazem, lecz numerycznym opisem cech twarzy, który można porównać z embeddingami zapisanymi wcześniej w systemie.
+
+W projekcie podobieństwo pomiędzy embeddingiem próbki wejściowej a embeddingami zapisanymi w systemie jest obliczane z użyciem podobieństwa cosinusowego. Miara ta określa zgodność kierunku dwóch wektorów cech:
+
+\[
+\cos(\theta) = \frac{A \cdot B}{\lVert A \rVert \lVert B \rVert}
+\]
+
+gdzie \(A\) i \(B\) oznaczają porównywane wektory. Im większa wartość podobieństwa, tym bardziej zbliżone są reprezentacje porównywanych twarzy.
+
+Na podstawie otrzymanych wartości system wybiera najlepszego kandydata spośród osób zapisanych w rejestrze. Decyzja o rozpoznaniu zależy jednak także od progu decyzyjnego oraz marginesu pomiędzy najlepszym i drugim wynikiem. Ogranicza to ryzyko wskazania osoby, gdy wynik jest zbyt niski albo różnica między kandydatami jest niewystarczająca.
+
+Implementacyjny fragment kodu obliczający podobieństwo cosinusowe został przedstawiony w rozdziale~\ref{chap:implementacja}, w sekcji dotyczącej najważniejszych fragmentów kodu. W tym miejscu istotne jest wyjaśnienie roli tej miary, a nie omawianie szczegółów konkretnej klasy.
+
+\section{Metoda identyfikacji odcisku palca}
+
+Identyfikacja odcisku palca opiera się na analizie obrazu przedstawiającego układ linii papilarnych. Dane wejściowe stanowi plik graficzny zawierający odcisk palca. Obraz jest przygotowywany do analizy, a następnie przekształcany do postaci szablonu biometrycznego.
+
+W projekcie do obsługi odcisków palców wykorzystano bibliotekę SourceAFIS \cite{sourceafis}. Umożliwia ona utworzenie szablonu odcisku oraz porównanie go z innymi zapisanymi szablonami. Szablon biometryczny opisuje charakterystyczne cechy odcisku, związane między innymi z układem linii papilarnych i punktami charakterystycznymi.
+
+Podczas identyfikacji szablon utworzony dla próbki wejściowej jest porównywany z szablonami zapisanymi wcześniej w systemie. Wynikiem porównania jest wartość dopasowania, która określa podobieństwo próbki wejściowej do danego wzorca. Na tej podstawie wybierany jest najlepszy kandydat.
+
+W aktualnej konfiguracji projektu dla identyfikacji odcisku palca przyjęto próg dopasowania równy \(85\) oraz margines bezpieczeństwa równy \(15\) punktów. Oznacza to, że wynik odcisku palca jest oceniany nie tylko na podstawie najlepszego dopasowania, ale również z uwzględnieniem różnicy względem kolejnego kandydata. Ogólną rolę tych parametrów opisano w następnej sekcji.
+
+\section{Parametry decyzyjne systemu}
+
+Parametry decyzyjne określają warunki, które muszą zostać spełnione, aby system uznał próbę identyfikacji za zakończoną znalezieniem dopasowania. Najważniejszym z nich jest próg akceptacji: dla twarzy dotyczy podobieństwa między embeddingami, a dla odcisku palca wartości dopasowania szablonów.
+
+Drugim istotnym parametrem jest margines pomiędzy najlepszym i drugim najlepszym kandydatem. Ogranicza on sytuacje, w których system wskazuje osobę mimo niewielkiej różnicy między kilkoma wynikami.
+
+W projekcie decyzja identyfikacyjna nie jest podejmowana wyłącznie na podstawie najwyższego wyniku. System sprawdza również, czy najlepszy kandydat ma wystarczającą przewagę nad kolejnym, dzięki czemu decyzja jest ostrożniejsza.
+
+Przykład implementacji decyzji opartej na progu dopasowania i marginesie został przedstawiony w rozdziale~\ref{chap:implementacja}, w sekcji dotyczącej najważniejszych fragmentów kodu. W tym miejscu istotne jest wyjaśnienie, dlaczego takie parametry są potrzebne w procesie identyfikacji.
+
+Dobór parametrów wpływa na działanie systemu. Zbyt niski próg może zwiększać ryzyko fałszywego dopasowania, natomiast zbyt wysoki może prowadzić do odrzucania poprawnych prób. Podobnie większy margines zwiększa ostrożność decyzji, ale może powodować więcej przypadków bez rozpoznania.
+
+W projekcie parametry decyzyjne regulują kompromis między skutecznością rozpoznawania a ostrożnością decyzji. Szczegółowa ocena ich wpływu na wyniki została przewidziana w rozdziale poświęconym testom i analizie skuteczności.
+
+\section{Uzasadnienie wyboru metod}
+
+Wybór modelu ArcFace w formacie ONNX dla identyfikacji twarzy wynikał z potrzeby utworzenia reprezentacji cech twarzy w postaci embeddingu. Dzięki temu system nie porównuje obrazów bezpośrednio, lecz wykorzystuje numeryczne reprezentacje, które lepiej nadają się do oceny podobieństwa pomiędzy twarzami.
+
+W przypadku odcisków palców zastosowanie biblioteki SourceAFIS pozwoliło oprzeć identyfikację na szablonach biometrycznych, a nie na prostym porównywaniu obrazów. Jest to podejście właściwsze dla tego typu danych, ponieważ uwzględnia charakterystyczne cechy odcisku, a nie wyłącznie wygląd pikseli w obrazie.
+
+W obu modalnościach przyjęto podobną logikę decyzyjną: próbka wejściowa jest przekształcana do reprezentacji biometrycznej, porównywana z zapisanymi wzorcami, a wynik oceniany przy użyciu progu i marginesu. Takie rozwiązanie pozwala pokazać pełny proces identyfikacji: od próbki wejściowej, przez reprezentację cech, aż po decyzję systemu zapisaną do dalszej oceny.

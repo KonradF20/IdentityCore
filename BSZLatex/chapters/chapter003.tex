@@ -1,0 +1,167 @@
+\chapter{Wymagania systemowe}
+\label{chap:wymagania-systemowe}
+
+\section{Wymagania funkcjonalne}
+
+Wymagania funkcjonalne określają funkcje, które system powinien udostępniać operatorowi. W przypadku aplikacji \textit{IdentityCore} dotyczą one przede wszystkim obsługi rejestru osób, danych biometrycznych, procesu identyfikacji oraz historii wykonanych prób.
+
+\renewcommand{\arraystretch}{1.15}
+\begin{xltabular}{\textwidth}{|
+    >{\RaggedRight\arraybackslash}p{1.5cm}|
+    >{\RaggedRight\arraybackslash}p{3.2cm}|
+    >{\RaggedRight\arraybackslash}X|
+    >{\RaggedRight\arraybackslash}p{1.8cm}|}
+    
+    \hline
+    \textbf{Id} & \textbf{Nazwa wymagania} & \textbf{Opis wymagania} & \textbf{Priorytet} \\
+    \hline
+    \endfirsthead
+
+    \hline
+    \textbf{Id} & \textbf{Nazwa wymagania} & \textbf{Opis wymagania} & \textbf{Priorytet} \\
+    \hline
+    \endhead
+
+    WF-01 & Logowanie operatora & System powinien umożliwiać operatorowi zalogowanie się do aplikacji przed uzyskaniem dostępu do głównych funkcji. & Wysoki \\
+    \hline
+    WF-02 & Panel główny & System powinien udostępniać panel główny prezentujący podstawowe informacje o stanie danych i ostatnich działaniach. & Średni \\
+    \hline
+    WF-03 & Rejestr osób & System powinien umożliwiać przeglądanie osób zapisanych w rejestrze. & Wysoki \\
+    \hline
+    WF-04 & Dodawanie osoby & System powinien umożliwiać dodanie nowej osoby wraz z podstawowymi danymi opisowymi. & Wysoki \\
+    \hline
+    WF-05 & Edycja danych osoby & System powinien umożliwiać aktualizację danych osoby zapisanej w rejestrze. & Wysoki \\
+    \hline
+    WF-06 & Zdjęcie profilowe & System powinien umożliwiać przypisanie zdjęcia profilowego do osoby. & Średni \\
+    \hline
+    WF-07 & Próbki twarzy & System powinien umożliwiać zapis danych biometrycznych twarzy przypisanych do osoby. & Wysoki \\
+    \hline
+    WF-08 & Próbki odcisku palca & System powinien umożliwiać zapis danych biometrycznych odcisku palca przypisanych do osoby. & Wysoki \\
+    \hline
+    WF-09 & Identyfikacja twarzy & System powinien umożliwiać wykonanie próby identyfikacji osoby na podstawie obrazu twarzy. & Wysoki \\
+    \hline
+    WF-10 & Identyfikacja odcisku palca & System powinien umożliwiać wykonanie próby identyfikacji osoby na podstawie obrazu odcisku palca. & Wysoki \\
+    \hline
+    WF-11 & Prezentacja wyniku & System powinien prezentować wynik identyfikacji w formie informacji o znalezionym dopasowaniu albo jego braku. & Wysoki \\
+    \hline
+    WF-12 & Historia prób & System powinien umożliwiać zapis informacji o wykonanych próbach identyfikacji. & Wysoki \\
+    \hline
+    WF-13 & Przeglądanie historii & System powinien umożliwiać przeglądanie i filtrowanie historii prób identyfikacji. & Średni \\
+    \hline
+    WF-14 & Ustawienia systemowe & System powinien umożliwiać konfigurację wybranych parametrów wpływających na decyzję identyfikacyjną. & Średni \\
+    \hline
+    WF-15 & Komunikaty systemowe & System powinien informować operatora o podstawowych błędach, brakach danych lub wyniku wykonanej operacji. & Wysoki \\
+    \hline
+
+    \caption{Wymagania funkcjonalne systemu}
+    \label{tab:wymagania-funkcjonalne} \\
+\end{xltabular}
+
+Wymagania funkcjonalne opisują zakres pracy systemu z perspektywy operatora. Nie określają sposobu realizacji poszczególnych funkcji, lecz wskazują, jakie działania powinny być możliwe w gotowej aplikacji.
+
+\section{Wymagania niefunkcjonalne}
+
+Wymagania niefunkcjonalne określają cechy jakościowe systemu. Dotyczą między innymi środowiska pracy, czytelności interfejsu, stabilności działania oraz organizacji projektu.
+
+\renewcommand{\arraystretch}{1.15}
+\begin{xltabular}{\textwidth}{|
+    >{\RaggedRight\arraybackslash}p{1.5cm}|
+    >{\RaggedRight\arraybackslash}p{3.2cm}|
+    >{\RaggedRight\arraybackslash}X|
+    >{\RaggedRight\arraybackslash}p{1.8cm}|}
+
+    \hline
+    \textbf{Id} & \textbf{Nazwa wymagania} & \textbf{Opis wymagania} & \textbf{Priorytet} \\
+    \hline
+    \endfirsthead
+
+    \hline
+    \textbf{Id} & \textbf{Nazwa wymagania} & \textbf{Opis wymagania} & \textbf{Priorytet} \\
+    \hline
+    \endhead
+
+    WNF-01 & Środowisko Windows & Aplikacja powinna działać w środowisku systemu Windows. & Wysoki \\
+    \hline
+    WNF-02 & Praca lokalna & System powinien działać lokalnie, bez konieczności korzystania z zewnętrznego serwera. & Wysoki \\
+    \hline
+    WNF-03 & Baza danych & Dane systemu powinny być przechowywane w lokalnej relacyjnej bazie danych. & Wysoki \\
+    \hline
+    WNF-04 & Czytelność interfejsu & Interfejs użytkownika powinien być spójny, czytelny i dostosowany do obsługi. & Wysoki \\
+    \hline
+    WNF-05 & Stabilność działania & System powinien obsługiwać typowe sytuacje błędne bez przerywania pracy aplikacji. & Wysoki \\
+    \hline
+    WNF-06 & Obsługa błędów & Komunikaty błędów powinny być zrozumiałe i wskazywać przyczynę problemu. & Wysoki \\
+    \hline
+    WNF-07 & Uporządkowanie danych & Dane osób, próbek biometrycznych, ustawień i historii prób powinny być przechowywane w uporządkowanej strukturze. & Wysoki \\
+    \hline
+    WNF-08 & Przejrzystość kodu & Kod aplikacji powinien być podzielony zgodnie z odpowiedzialnością poszczególnych elementów systemu. & Średni \\
+    \hline
+
+    \caption{Wymagania niefunkcjonalne systemu}
+    \label{tab:wymagania-niefunkcjonalne}
+\end{xltabular}
+
+Wymagania niefunkcjonalne są istotne, ponieważ projekt nie ogranicza się do samego działania funkcji. Aplikacja powinna być możliwa do uruchomienia, czytelna w obsłudze i odporna na podstawowe błędy użytkownika.
+
+\section{Wymagania dotyczące bezpieczeństwa}
+
+Wymagania dotyczące bezpieczeństwa określają podstawowe oczekiwania związane z kontrolą dostępu, przechowywaniem danych oraz ograniczaniem ryzyka błędnej interpretacji wyniku. Szczegółowa analiza zagrożeń została przedstawiona w osobnym rozdziale, dlatego w tym miejscu wskazano jedynie wymagania systemowe.
+
+\renewcommand{\arraystretch}{1.15}
+\begin{xltabular}{\textwidth}{|
+    >{\RaggedRight\arraybackslash}p{1.5cm}|
+    >{\RaggedRight\arraybackslash}p{3.2cm}|
+    >{\RaggedRight\arraybackslash}X|
+    >{\RaggedRight\arraybackslash}p{1.8cm}|}
+
+    \hline
+    \textbf{Id} & \textbf{Nazwa wymagania} & \textbf{Opis wymagania} & \textbf{Priorytet} \\
+    \hline
+    \endfirsthead
+
+    \hline
+    \textbf{Id} & \textbf{Nazwa wymagania} & \textbf{Opis wymagania} & \textbf{Priorytet} \\
+    \hline
+    \endhead
+
+    WB-01 & Kontrola dostępu & Dostęp do głównych funkcji aplikacji powinien być poprzedzony logowaniem operatora. & Wysoki \\
+    \hline
+    WB-02 & Dane osób & System powinien przechowywać dane osób w bazie danych w sposób uporządkowany i powiązany z właściwym profilem. & Wysoki \\
+    \hline
+    WB-03 & Dane biometryczne & Dane biometryczne powinny być przypisywane do odpowiedniej osoby zapisanej w rejestrze. & Wysoki \\
+    \hline
+    WB-04 & Historia prób & System powinien zapisywać informacje o wykonanych próbach identyfikacji, aby możliwa była późniejsza analiza działania systemu. & Wysoki \\
+    \hline
+    WB-05 & Parametry decyzyjne & System powinien umożliwiać kontrolę parametrów wpływających na decyzję identyfikacyjną. & Średni \\
+    \hline
+    WB-06 & Ograniczenie błędnej identyfikacji & System powinien uwzględniać mechanizmy ograniczające ryzyko przypadkowego wskazania niewłaściwej osoby. & Wysoki \\
+    \hline
+    WB-07 & Informowanie o wyniku & System powinien jednoznacznie informować operatora, czy dopasowanie zostało znalezione, czy nie. & Wysoki \\
+    \hline
+    WB-08 & Błędne dane wejściowe & System powinien reagować na podstawowe problemy z danymi wejściowymi, takie jak brak pliku, nieczytelny obraz lub brak danych porównawczych. & Wysoki \\
+    \hline
+
+    \caption{Wymagania dotyczące bezpieczeństwa}
+    \label{tab:wymagania-bezpieczenstwa}
+\end{xltabular}
+
+Wymagania bezpieczeństwa w tym rozdziale mają charakter podstawowy. Nie oznaczają, że system spełnia wymagania produkcyjnego systemu ochrony dostępu. Ich celem jest wskazanie, jakie mechanizmy powinny ograniczać błędne użycie aplikacji w warunkach projektowych.
+
+\newpage
+
+\section{Założenia dotyczące użytkowników i środowiska pracy}
+
+System został zaprojektowany z myślą o obsłudze przez operatora. Operator korzysta z aplikacji lokalnie, zarządza danymi osób, uruchamia próby identyfikacji i analizuje ich wyniki. Nie zakłada się rozbudowanego modelu wielu użytkowników, ról ani uprawnień.
+
+Przyjęto następujące założenia dotyczące użytkowników i środowiska pracy:
+\begin{itemize}
+    \item aplikacja jest obsługiwana przez jednego operatora,
+    \item system działa lokalnie na komputerze z systemem Windows,
+    \item dane osób muszą zostać wcześniej zapisane w bazie,
+    \item identyfikacja odbywa się względem osób już zarejestrowanych w systemie,
+    \item skuteczność identyfikacji zależy od jakości dostarczonych danych wejściowych,
+    \item projekt jest przeznaczony wyłącznie do prezentacji i testów,
+    \item system nie stanowi kompletnego produkcyjnego rozwiązania bezpieczeństwa.
+\end{itemize}
+
+Założenia te wyznaczają granice odpowiedzialności systemu. Aplikacja ma umożliwić przeprowadzenie i ocenę procesu identyfikacji biometrycznej w kontrolowanych warunkach, a nie zastępować profesjonalny system kontroli dostępu.

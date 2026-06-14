@@ -1,0 +1,62 @@
+\chapter{Harmonogram realizacji projektu}
+\label{chap:harmonogram}
+
+\section{Etapy realizacji}
+
+Prace nad projektem \textit{IdentityCore} rozpoczęto na początku maja 2026 roku, a zakończono w drugim tygodniu czerwca 2026 roku. Projekt był realizowany etapowo, jednak poszczególne części częściowo nakładały się na siebie. Wynikało to z charakteru aplikacji, w której warstwa interfejsu, baza danych, logika biometryczna i testy musiały być rozwijane równolegle.
+
+Pierwszym etapem było określenie zakresu projektu oraz wybór głównych funkcji systemu. Ustalono, że aplikacja będzie lokalnym systemem identyfikacji osób, wykorzystującym dwa typy danych biometrycznych: obraz twarzy oraz obraz odcisku palca. Na tym etapie doprecyzowano również, że projekt będzie aplikacją desktopową z bazą danych SQL Server.
+
+Kolejne etapy obejmowały przygotowanie struktury aplikacji, modelu danych oraz widoków WPF. Następnie rozwijano rejestr osób, obsługę profilu osoby, zapisywanie zdjęcia profilowego oraz powiązanie osoby z próbkami biometrycznymi. Po przygotowaniu podstaw aplikacji rozpoczęto implementację modułów identyfikacji twarzy i odcisku palca.
+
+W końcowej części prac skupiono się na dopracowaniu interfejsu, historii prób, ustawieniach systemowych, testach oraz dokumentacji. Ostatni etap obejmował poprawki, uporządkowanie plików SQL, przygotowanie zrzutów ekranu i opis działania systemu w pracy projektowej.
+
+\section{Harmonogram prac}
+
+Harmonogram prac został przygotowany w ujęciu tygodniowym. Daty mają charakter porządkujący i odzwierciedlają główne etapy pracy nad aplikacją.
+
+\renewcommand{\arraystretch}{1.15}
+\begin{xltabular}{\textwidth}{|
+    >{\RaggedRight\arraybackslash}p{1.2cm}|
+    >{\RaggedRight\arraybackslash}p{3.2cm}|
+    >{\RaggedRight\arraybackslash}p{2.6cm}|
+    >{\RaggedRight\arraybackslash}X|}
+
+    \hline
+    \textbf{Etap} & \textbf{Zakres prac} & \textbf{Termin} & \textbf{Rezultat} \\
+    \hline
+    \endfirsthead
+
+    \hline
+    \textbf{Etap} & \textbf{Zakres prac} & \textbf{Termin} & \textbf{Rezultat} \\
+    \hline
+    \endhead
+
+    1 & Analiza założeń i zakresu projektu & 04.05--08.05.2026 & Ustalenie zakresu funkcji oraz głównych modułów aplikacji. \\
+    \hline
+    2 & Przygotowanie struktury projektu i bazy danych & 09.05--15.05.2026 & Utworzenie podstaw aplikacji, struktury katalogów, modelu danych i skryptów SQL. \\
+    \hline
+    3 & Rejestr osób i profil osoby & 16.05--22.05.2026 & Przygotowanie obsługi osób, edycji profilu, zdjęcia profilowego oraz próbek biometrycznych. \\
+    \hline
+    4 & Moduł identyfikacji twarzy & 23.05--29.05.2026 & Dodanie obsługi obrazu twarzy, modelu \texttt{arcface.onnx}, porównywania embeddingów i decyzji systemu. \\
+    \hline
+    5 & Moduł identyfikacji odcisku palca & 27.05--02.06.2026 & Dodanie obsługi obrazów odcisków, szablonów SourceAFIS, porównywania wzorców i decyzji systemu. \\
+    \hline
+    6 & Historia, ustawienia i panel główny & 03.06--07.06.2026 & Przygotowanie historii prób, parametrów decyzyjnych, podsumowań systemu i szybkich przejść. \\
+    \hline
+    7 & Testy, poprawki i finalizacja aplikacji & 08.06--11.06.2026 & Sprawdzenie działania modułów, korekty błędów, przygotowanie danych testowych i zrzutów ekranu. \\
+    \hline
+    8 & Dokumentacja projektu & 10.06--14.06.2026 & Przygotowanie opisu projektu, rozdziałów dokumentacji, wyników testów i materiałów końcowych. \\
+    \hline
+
+    \caption{Harmonogram realizacji projektu IdentityCore}
+    \label{tab:harmonogram-prac}
+\end{xltabular}
+
+\section{Podział pracy}
+
+Projekt był realizowany zespołowo. Prace nie zostały sztywno podzielone na całkowicie oddzielne części wykonywane niezależnie przez poszczególne osoby. Zespół pracował wspólnie nad najważniejszymi decyzjami projektowymi, zakresem funkcji, wyglądem aplikacji, testami oraz dokumentacją.
+
+Wspólny charakter pracy był szczególnie istotny przy modułach biometrycznych, ponieważ identyfikacja twarzy, identyfikacja odcisku palca, rejestr osób i historia prób są ze sobą powiązane. Zmiana w jednym module często wymagała sprawdzenia działania pozostałych elementów aplikacji. Z tego powodu wiele zadań było konsultowanych i testowanych wspólnie.
+
+W praktyce praca zespołu obejmowała wspólne ustalanie wymagań, projektowanie struktury aplikacji, przygotowywanie widoków, implementację funkcji, testowanie działania systemu oraz opracowanie dokumentacji. Taki sposób pracy pozwolił zachować spójność projektu i uniknąć sytuacji, w której poszczególne moduły działałyby osobno, ale nie tworzyłyby jednego kompletnego systemu.

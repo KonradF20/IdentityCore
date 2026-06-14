@@ -1,0 +1,128 @@
+\chapter{Technologie wykorzystane w projekcie}
+\label{chap:technologie}
+
+\section{Środowisko programistyczne}
+
+Aplikacja \textit{IdentityCore} została przygotowana w języku C\# z wykorzystaniem platformy .NET. \newline Technologie te wykorzystano do utworzenia lokalnej aplikacji desktopowej realizującej logikę systemu, obsługę interfejsu użytkownika, komunikację z bazą danych oraz integrację z modułami biometrycznymi.
+
+Projekt był rozwijany w środowisku Visual Studio 2026, wersja 18.5.2. Środowisko to umożliwiało edycję plików C\# i XAML, zarządzanie zależnościami, uruchamianie aplikacji oraz debugowanie programu podczas prac projektowych.
+
+Jako środowisko uruchomieniowe przyjęto system Windows. Jest to zgodne z charakterem aplikacji, ponieważ \textit{IdentityCore} działa lokalnie. W pliku projektu wskazano platformę docelową \texttt{net10.0-windows}, co oznacza wykorzystanie platformy .NET 10 dla aplikacji Windows Desktop.
+
+\section{Technologie interfejsu użytkownika}
+
+Do wykonania interfejsu użytkownika zastosowano WPF oraz XAML. WPF został wykorzystany jako technologia aplikacji desktopowej, natomiast XAML posłużył do opisu struktury widoków i elementów wizualnych.
+
+Interfejs aplikacji obejmuje ekrany odpowiadające głównym obszarom systemu, takim jak panel główny, rejestr osób, identyfikacja twarzy, identyfikacja odcisku palca, historia prób oraz ustawienia. W tym rozdziale istotne jest jednak samo wskazanie technologii, a nie szczegółowe omawianie scenariuszy użycia poszczególnych widoków.
+
+Wspólne style interfejsu zapisano w plikach XAML. Pozwala to zachować spójność wyglądu przycisków, kart, tabel, pól wejściowych i kolorów w różnych częściach aplikacji. Takie rozwiązanie ułatwia utrzymanie jednolitego charakteru graficznego systemu bez powielania tych samych ustawień w każdym widoku.
+
+\section{Technologie dostępu do danych}
+
+Do przechowywania danych wykorzystano SQL Server jako relacyjną bazę danych. W projekcie baza służy do zapisu informacji o osobach, danych biometrycznych, ustawieniach systemowych oraz historii wykonanych prób identyfikacji. Szczegółowa struktura tabel i relacji zostanie przedstawiona w osobnym rozdziale dotyczącym bazy danych.
+
+Komunikacja aplikacji z bazą danych jest realizowana z użyciem biblioteki \texttt{Microsoft.Data.SqlClient}. Biblioteka ta umożliwia wykonywanie operacji zapisu, odczytu i aktualizacji danych z poziomu aplikacji C\#. Dzięki temu aplikacja może korzystać z danych zapisanych w relacyjnej bazie bez konieczności stosowania zewnętrznego serwera aplikacyjnego.
+
+W projekcie wykorzystano również skrypty SQL. Służą one do przygotowania struktury bazy danych, aktualizacji istniejącej bazy oraz czyszczenia danych biometrycznych podczas prac testowych. Do pracy z bazą wykorzystano SQL Server Management Studio, które umożliwiało sprawdzanie struktury danych i kontrolę poprawności skryptów.
+
+\section{Biblioteki do przetwarzania obrazu i biometrii}
+
+Część biometryczna projektu korzysta z narzędzi wspierających pracę z obrazami oraz reprezentacjami biometrycznymi. Każde z nich pełni konkretną rolę w systemie i zostało dobrane do określonego obszaru aplikacji.
+
+OpenCvSharp wykorzystano jako bibliotekę wspierającą przetwarzanie obrazów. W projekcie pomaga ona w operacjach związanych z obrazami twarzy, przygotowaniem danych wejściowych oraz obsługą materiału obrazowego. Nie jest to samodzielny mechanizm identyfikacji osoby, lecz narzędzie pomocnicze w pracy z obrazem.
+
+Do obsługi identyfikacji twarzy wykorzystano model ArcFace zapisany w pliku \texttt{arcface.onnx}. Plik ten zawiera gotowy model służący do uzyskania reprezentacji twarzy. Format ONNX pełni w projekcie rolę sposobu zapisu modelu, natomiast jego uruchomienie w aplikacji jest realizowane z wykorzystaniem pakietów \texttt{Microsoft.ML.OnnxTransformer} oraz \texttt{Microsoft.ML.OnnxRuntime}. Dzięki temu model może zostać użyty bezpośrednio w aplikacji .NET.
+
+Do obsługi odcisków palców zastosowano bibliotekę SourceAFIS. W projekcie odpowiada ona za tworzenie i porównywanie szablonów odcisków palców. Dzięki temu część związana z odciskiem palca może być realizowana na poziomie reprezentacji biometrycznej, a nie przez proste porównywanie obrazów.
+
+W tym rozdziale biblioteki są omawiane z perspektywy technologii użytych w projekcie. Rozdział dotyczący metod i algorytmów przedstawiał zasadę działania identyfikacji twarzy i odcisku palca, natomiast szczegóły implementacyjne, klasy oraz szersze fragmenty kodu zostaną omówione w rozdziale poświęconym implementacji aplikacji. W tym miejscu istotne jest więc przede wszystkim wskazanie, jakie narzędzia zostały użyte i jaką pełnią rolę w systemie.
+
+\section{Narzędzia pomocnicze i organizacyjne}
+
+Podczas pracy nad projektem wykorzystano narzędzia wspierające organizację kodu, obsługę dużych plików oraz przygotowanie środowiska danych. Do kontroli wersji użyto systemu Git, a repozytorium projektu przechowywano w serwisie GitHub. Pozwoliło to śledzić zmiany w kodzie i porządkować kolejne etapy pracy.
+
+W projekcie wykorzystano również pakiety NuGet. Służą one do zarządzania zależnościami aplikacji, między innymi bibliotekami związanymi z dostępem do danych, obsługą obrazów, uruchamianiem modelu ONNX oraz identyfikacją odcisków palców. Najważniejsze pakiety wykorzystane w projekcie przedstawiono w tabeli~\ref{tab:pakiety-nuget}.
+
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{xltabular}{\textwidth}{|
+    >{\RaggedRight\arraybackslash}X|
+    >{\RaggedRight\arraybackslash}p{2.6cm}|}
+
+    \hline
+    \textbf{Pakiet NuGet} & \textbf{Wersja} \\
+    \hline
+    \endfirsthead
+
+    \texttt{Microsoft.Data.SqlClient} & 7.0.1 \\
+    \hline
+    \texttt{Microsoft.ML} & 5.0.0 \\
+    \hline
+    \texttt{Microsoft.ML.OnnxRuntime} & 1.26.0 \\
+    \hline
+    \texttt{Microsoft.ML.OnnxTransformer} & 5.0.0 \\
+    \hline
+    \texttt{OpenCvSharp4} & 4.13.0.20260427 \\
+    \hline
+    \texttt{OpenCvSharp4.runtime.win} & 4.13.0.20260302 \\
+    \hline
+    \texttt{OpenCvSharp4.WpfExtensions} & 4.13.0.20260427 \\
+    \hline
+    \texttt{SourceAFIS} & 3.14.0 \\
+    \hline
+
+    \caption{Najważniejsze pakiety NuGet wykorzystane w projekcie}
+    \label{tab:pakiety-nuget}
+\end{xltabular}
+
+\setlength{\tabcolsep}{6pt}
+
+Dodatkową rolę pełnią pliki graficzne i zasoby aplikacji, takie jak ikony, obrazy, style XAML oraz pliki pomocnicze używane przy pracy z obrazami. Nie są one osobnymi technologiami programistycznymi, ale wpływają na kompletność i spójność działania aplikacji.
+
+\section{Uzasadnienie wyboru technologii}
+
+Dobór technologii wynikał z charakteru projektu. Aplikacja miała działać lokalnie, posiadać interfejs desktopowy, korzystać z relacyjnej bazy danych oraz integrować moduły biometryczne. Z tego powodu C\#/.NET i WPF/XAML dobrze pasują do przygotowania aplikacji obsługiwanej przez operatora w środowisku Windows.
+
+SQL Server został wykorzystany do uporządkowanego przechowywania danych systemu, natomiast biblioteki biometryczne umożliwiły realizację identyfikacji twarzy i odcisku palca. Całość jest spójna z charakterem projektu łączącego zagadnienia z Programowania Obiektowego II oraz Biometrycznych Systemów Zabezpieczeń.
+
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{xltabular}{\textwidth}{|
+    >{\RaggedRight\arraybackslash}p{3.5cm}|
+    >{\RaggedRight\arraybackslash}X|
+    >{\RaggedRight\arraybackslash}X|}
+
+    \hline
+    \textbf{Technologia/narzędzie} & \textbf{Zastosowanie w projekcie} & \textbf{Uzasadnienie wyboru} \\
+    \hline
+    \endfirsthead
+
+    \hline
+    \textbf{Technologia/narzędzie} & \textbf{Zastosowanie w projekcie} & \textbf{Uzasadnienie wyboru} \\
+    \hline
+    \endhead
+
+    C\# i .NET & Logika aplikacji desktopowej oraz integracja poszczególnych części systemu. & Technologie odpowiednie do tworzenia lokalnej aplikacji dla systemu Windows. \\
+    \hline
+    WPF i XAML & Przygotowanie interfejsu użytkownika oraz wspólnych stylów aplikacji. & Umożliwiają budowę aplikacji desktopowej z czytelnym i spójnym interfejsem. \\
+    \hline
+    SQL Server & Przechowywanie danych osób, ustawień, danych biometrycznych i historii prób. & Relacyjna baza danych pozwala uporządkować dane wykorzystywane przez system. \\
+    \hline
+    Microsoft.Data.SqlClient & Komunikacja aplikacji z bazą danych. & Pozwala wykonywać operacje na SQL Server z poziomu aplikacji C\#. \\
+    \hline
+    OpenCvSharp & Wsparcie operacji związanych z przetwarzaniem obrazów. & Ułatwia przygotowanie danych obrazowych wykorzystywanych w części biometrycznej. \\
+    \hline
+    ArcFace/ONNX + ONNX Runtime & Uzyskanie reprezentacji twarzy na podstawie pliku modelu \texttt{arcface.onnx}. & Pozwalają wykorzystać gotowy model twarzy w aplikacji .NET i połączyć go z logiką identyfikacji. \\
+    \hline
+    SourceAFIS & Obsługa szablonów i porównywania odcisków palców. & Biblioteka pasuje do części projektu odpowiedzialnej za identyfikację odcisku palca. \\
+    \hline
+    Git, GitHub i Git LFS & Kontrola wersji, przechowywanie repozytorium oraz obsługa dużych plików. & Ułatwiają organizację pracy i przechowywanie zasobów takich jak model ONNX. \\
+    \hline
+    SSMS & Przygotowanie i kontrola bazy danych. & Ułatwia pracę ze skryptami SQL oraz weryfikację danych. \\
+    \hline
+
+    \caption{Podsumowanie technologii wykorzystanych w projekcie}
+    \label{tab:technologie-podsumowanie}
+\end{xltabular}
+
+\setlength{\tabcolsep}{6pt}

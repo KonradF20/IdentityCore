@@ -1,0 +1,200 @@
+\chapter{Koncepcja rozwiązania biometrycznego}
+\label{chap:koncepcja-rozwiazania}
+
+\section{Ogólna idea działania systemu}
+
+Koncepcja systemu \textit{IdentityCore} opiera się na prowadzeniu lokalnego rejestru osób oraz powiązaniu każdej osoby z danymi biometrycznymi. Dane te mogą dotyczyć twarzy lub odcisku palca. Po zapisaniu osoby i jej próbek system może wykonać próbę identyfikacji na podstawie nowej próbki wejściowej.
+
+Identyfikacja odbywa się względem danych już dostępnych w systemie. Oznacza to, że analizowana próbka nie jest oceniana samodzielnie, lecz porównywana z wcześniej zapisanymi reprezentacjami biometrycznymi osób znajdujących się w rejestrze. Wynikiem procesu jest wskazanie najlepszego dopasowania albo informacja, że dopasowanie nie zostało znalezione.
+
+\section{Pipeline przetwarzania danych}
+
+Pipeline systemu biometrycznego opisuje ogólny przepływ danych od momentu dostarczenia próbki wejściowej do uzyskania wyniku identyfikacji. W przypadku obu wykorzystywanych modalności -- twarzy oraz odcisku palca -- proces ma podobną strukturę koncepcyjną: dane wejściowe są przygotowywane do analizy, przekształcane do postaci reprezentacji biometrycznej, a następnie porównywane z danymi zapisanymi wcześniej w systemie.
+
+Na podstawie porównania system wyznacza najlepiej dopasowanego kandydata i podejmuje decyzję, czy wynik można uznać za poprawne dopasowanie. Informacja o wykonanej próbie może zostać zapisana w historii, co umożliwia późniejszą analizę oraz ocenę poprawności przeprowadzonych identyfikacji.
+
+\bigskip
+
+Na rysunku~\ref{fig:pipeline-identitycore} przedstawiono uproszczony przepływ danych od momentu pozyskania próbki wejściowej do zapisania informacji o wykonanej próbie identyfikacji.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        node distance=0.6cm,
+        block/.style={
+            rectangle,
+            draw,
+            rounded corners,
+            align=center,
+            minimum width=9.5cm,
+            minimum height=0.75cm,
+            font=\small
+        },
+        arrow/.style={
+            -{Latex[length=3mm]},
+            thick
+        }
+    ]
+
+        \node[block] (input) {Pozyskanie danych wejściowych\\obraz twarzy lub obraz odcisku palca};
+        \node[block, below=of input] (prep) {Przygotowanie danych do analizy};
+        \node[block, below=of prep] (repr) {Utworzenie reprezentacji biometrycznej};
+        \node[block, below=of repr] (compare) {Porównanie z zapisanymi wzorcami};
+        \node[block, below=of compare] (match) {Wyznaczenie najlepszego dopasowania};
+        \node[block, below=of match] (decision) {Podjęcie decyzji o wyniku identyfikacji};
+        \node[block, below=of decision] (history) {Zapis informacji o wykonanej próbie};
+
+        \draw[arrow] (input) -- (prep);
+        \draw[arrow] (prep) -- (repr);
+        \draw[arrow] (repr) -- (compare);
+        \draw[arrow] (compare) -- (match);
+        \draw[arrow] (match) -- (decision);
+        \draw[arrow] (decision) -- (history);
+
+    \end{tikzpicture}
+    \caption{Ogólny pipeline działania systemu biometrycznego IdentityCore}
+    \label{fig:pipeline-identitycore}
+\end{figure}
+
+\newpage
+
+\section{Proces rejestracji osoby}
+
+Proces rejestracji osoby polega na utworzeniu w systemie profilu, który może zostać później wykorzystany podczas identyfikacji. Nie jest to rejestracja konta użytkownika aplikacji, lecz dodanie wpisu osoby do rejestru identyfikacyjnego wraz z przypisanymi danymi opisowymi i biometrycznymi.
+
+W praktyce proces ten obejmuje wprowadzenie podstawowych danych osoby, dodanie zdjęcia profilowego oraz zapisanie próbek biometrycznych twarzy i odcisku palca. Dane opisowe oraz zdjęcie profilowe służą do czytelnej prezentacji osoby w aplikacji, natomiast próbki biometryczne stanowią dane odniesienia wykorzystywane podczas późniejszych prób identyfikacji.
+
+Osoba, dla której nie zapisano danych biometrycznych danego typu, nie może zostać skutecznie zidentyfikowana z użyciem tej modalności. Oznacza to, że jakość i kompletność danych zebranych na etapie rejestracji mają bezpośredni wpływ na późniejszą skuteczność działania systemu.
+
+\bigskip
+\bigskip
+
+Na rysunku~\ref{fig:rejestracja-osoby} przedstawiono uproszczony przebieg procesu rejestracji osoby w systemie \textit{IdentityCore}.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        node distance=0.55cm,
+        block/.style={
+            rectangle,
+            draw,
+            rounded corners,
+            align=center,
+            minimum width=7.2cm,
+            minimum height=0.85cm,
+            text width=6.8cm,
+            font=\small
+        },
+        arrow/.style={
+            -{Latex[length=2mm]},
+            thick
+        }
+    ]
+
+        \node[block] (start) {Wprowadzenie podstawowych danych osoby};
+        \node[block, below=of start] (photo) {Dodanie zdjęcia profilowego};
+        \node[block, below=of photo] (face) {Dodanie próbek twarzy};
+        \node[block, below=of face] (finger) {Dodanie próbek odcisku palca};
+        \node[block, below=of finger] (save) {Zapis danych w systemie};
+
+        \draw[arrow] (start) -- (photo);
+        \draw[arrow] (photo) -- (face);
+        \draw[arrow] (face) -- (finger);
+        \draw[arrow] (finger) -- (save);
+
+    \end{tikzpicture}
+    \caption{Proces rejestracji osoby w systemie \textit{IdentityCore}}
+    \label{fig:rejestracja-osoby}
+\end{figure}
+
+\section{Proces identyfikacji osoby}
+
+Proces identyfikacji rozpoczyna się od wyboru typu identyfikacji przez operatora. System może wykonać próbę na podstawie twarzy albo na podstawie odcisku palca. W obu przypadkach główna idea pozostaje taka sama: nowa próbka jest porównywana z danymi zapisanymi wcześniej w systemie.
+
+W przypadku identyfikacji twarzy operator dostarcza obraz twarzy. System przygotowuje dane wejściowe do analizy, tworzy ich reprezentację biometryczną i porównuje ją z reprezentacjami zapisanymi dla osób w rejestrze. Jeżeli wynik porównania spełnia przyjęte warunki, system wskazuje najlepiej dopasowaną osobę. W przeciwnym razie informuje o braku dopasowania.
+
+W przypadku identyfikacji odcisku palca operator dostarcza obraz odcisku. System przetwarza próbkę do postaci umożliwiającej porównanie z zapisanymi danymi biometrycznymi. Następnie wybierany jest najlepszy kandydat albo zwracana jest informacja, że nie znaleziono osoby odpowiadającej analizowanej próbce.
+
+Po zakończeniu próby wynik może zostać zapisany w historii. Zapis obejmuje podstawowe informacje o wykonanej identyfikacji, takie jak typ użytej biometrii, wynik oraz powiązanie z rozpoznaną osobą, jeżeli dopasowanie zostało znalezione.
+
+\newpage
+
+\section{Schemat blokowy działania systemu}
+
+Schemat blokowy systemu przedstawia ogólną organizację przepływu danych i decyzji w aplikacji \\\textit{IdentityCore}. W odróżnieniu od pipeline'u przetwarzania danych, schemat ten pokazuje nie tylko kolejne etapy analizy próbki, ale również powiązanie operatora, rejestru osób, danych biometrycznych, modułu identyfikacji, wyniku oraz historii prób.
+
+Na poziomie koncepcyjnym można wyróżnić dwa główne tory działania systemu. Pierwszy dotyczy przygotowania danych odniesienia, czyli zapisania osoby w rejestrze oraz powiązania jej z danymi biometrycznymi. Drugi dotyczy wykonania próby identyfikacji, w której nowa próbka wejściowa jest porównywana z danymi zapisanymi wcześniej w systemie. Wynik próby może zostać następnie zapisany w historii.
+
+\bigskip
+\bigskip
+
+Na rysunku~\ref{fig:schemat-blokowy-identitycore} przedstawiono uproszczony schemat blokowy działania systemu. Diagram ma charakter koncepcyjny i nie przedstawia szczegółów implementacyjnych.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        node distance=0.75cm and 0.65cm,
+        block/.style={
+            rectangle,
+            draw,
+            rounded corners,
+            align=center,
+            minimum width=3.45cm,
+            minimum height=0.85cm,
+            text width=3.25cm,
+            font=\scriptsize
+        },
+        wideblock/.style={
+            rectangle,
+            draw,
+            rounded corners,
+            align=center,
+            minimum width=4.6cm,
+            minimum height=0.85cm,
+            text width=4.35cm,
+            font=\scriptsize
+        },
+        arrow/.style={
+            -{Latex[length=2mm]},
+            thick
+        }
+    ]
+
+        % Główna oś systemu
+        \node[wideblock] (operator) {Operator};
+        \node[wideblock, below=of operator] (app) {Aplikacja \textit{IdentityCore}};
+
+        % Lewa gałąź: dane odniesienia
+        \node[block, below left=of app] (person) {Rejestr osób};
+        \node[block, below=of person] (bio) {Dane biometryczne\\twarzy i odcisku palca};
+
+        % Prawa gałąź: próba identyfikacji
+        \node[block, below right=of app] (sample) {Nowa próbka\\wejściowa};
+        \node[block, below=of sample] (module) {Moduł identyfikacji};
+
+        % Wynik i historia
+        \node[wideblock, below=3.5cm of app] (result) {Wynik identyfikacji};
+        \node[wideblock, below=of result] (history) {Historia prób};
+
+        % Połączenia główne
+        \draw[arrow] (operator) -- (app);
+
+        % Tor rejestracji danych
+        \draw[arrow] (app) -- (person);
+        \draw[arrow] (person) -- (bio);
+
+        % Tor identyfikacji
+        \draw[arrow] (app) -- (sample);
+        \draw[arrow] (sample) -- (module);
+
+        % Powiązanie danych odniesienia z identyfikacją
+        \draw[arrow] (bio.east) -- (module.west);
+
+        % Wynik i historia
+        \draw[arrow] (module.west) -- (result.east);
+        \draw[arrow] (result) -- (history);
+
+    \end{tikzpicture}
+    \caption{Schemat blokowy działania systemu \textit{IdentityCore}}
+    \label{fig:schemat-blokowy-identitycore}
+\end{figure}

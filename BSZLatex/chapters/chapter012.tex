@@ -1,0 +1,32 @@
+\chapter{Analiza bezpieczeństwa systemu}
+\label{chap:bezpieczenstwo}
+
+\section{Potencjalne zagrożenia}
+
+System \textit{IdentityCore} jest lokalną aplikacją demonstracyjną, dlatego główne zagrożenia dotyczą przede wszystkim danych wejściowych, lokalnej bazy oraz konfiguracji parametrów decyzyjnych. Operator może wczytywać obrazy z plików, co oznacza, że jako dane wejściowe mogą zostać podane wcześniej przygotowane lub zmodyfikowane obrazy twarzy i odcisków palców. Ryzyko dotyczy więc nie tylko jakości próbki, ale również możliwości podstawienia danych niepochodzących bezpośrednio od badanej osoby.
+
+Drugim obszarem ryzyka jest lokalna baza danych, w której przechowywane są informacje o osobach, szablony biometryczne, ustawienia i historia prób. Podmiana, uszkodzenie lub nieuprawniona modyfikacja tych danych mogłaby wpłynąć na działanie systemu. Znaczenie mają również progi decyzyjne: zbyt niskie wartości mogą zwiększać ryzyko błędnej akceptacji, a zbyt wysokie mogą powodować częstsze odrzucanie poprawnych próbek.
+
+\section{Ryzyko fałszowania danych biometrycznych}
+
+Istotnym ograniczeniem prototypu jest brak pełnego mechanizmu wykrywania żywotności próbki, czyli \textit{liveness detection}. Oznacza to, że system może być podatny na próby użycia zdjęcia twarzy zamiast żywej osoby, obrazu twarzy wyświetlonego na ekranie albo wcześniej przygotowanego pliku graficznego. Podobne ryzyko dotyczy odcisków palców, gdzie do aplikacji można wprowadzić skan lub kopię odcisku zapisaną jako obraz.
+
+W obecnej wersji aplikacja analizuje dostarczony obraz i podejmuje decyzję na podstawie wyniku dopasowania, progu oraz marginesu. Nie sprawdza jednak w zaawansowany sposób, czy próbka pochodzi od osoby obecnej fizycznie przy stanowisku.
+
+\section{Błędy identyfikacji}
+
+W systemach biometrycznych mogą wystąpić dwa podstawowe typy błędów: fałszywa akceptacja oraz fałszywe odrzucenie. Fałszywa akceptacja oznacza uznanie próbki za zgodną z osobą z bazy mimo braku rzeczywistej zgodności. Fałszywe odrzucenie oznacza brak dopasowania mimo tego, że próbka pochodzi od osoby zapisanej w systemie.
+
+Na decyzję wpływa jakość danych wejściowych. W przypadku twarzy znaczenie mają oświetlenie, ostrość, ustawienie głowy i widoczność twarzy. W przypadku odcisku palca istotne są czytelność linii papilarnych, kompletność próbki, kontrast i ewentualne rozmazanie. Dodatkowym zabezpieczeniem jest margines między najlepszym i drugim kandydatem, który ogranicza akceptację przypadków niejednoznacznych.
+
+\section{Ocena odporności systemu}
+
+Aplikacja posiada podstawowe mechanizmy ograniczające ryzyko błędnej decyzji. Należą do nich progi decyzyjne, margines Top1--Top2, odrzucanie wyników poniżej progu, komunikaty o nieudanej analizie oraz historia prób identyfikacji.
+
+Jednocześnie odporność systemu jest ograniczona. Prototyp nie posiada pełnego wykrywania żywotności próbki, nie zawiera rozbudowanego modelu ról użytkowników i nie powinien być traktowany jako system produkcyjnie bezpieczny.
+
+\section{Możliwe usprawnienia bezpieczeństwa}
+
+Najważniejszym kierunkiem rozwoju byłoby dodanie mechanizmów \textit{liveness detection} dla identyfikacji twarzy, aby ograniczyć ryzyko użycia zdjęcia lub obrazu wyświetlonego na ekranie. W module odcisku palca warto rozważyć bezpośrednią integrację ze skanerem, zamiast opierania procesu wyłącznie na wczytywaniu plików graficznych.
+
+Kolejne usprawnienia powinny dotyczyć ochrony danych i dostępu do aplikacji. W przyszłości warto dodać hashowanie i solenie haseł operatora, blokadę po wielu błędnych próbach logowania, szyfrowanie szablonów biometrycznych oraz dokładniejsze rejestrowanie zdarzeń administracyjnych. Dodatkowo system powinien zostać sprawdzony na większym zbiorze danych, z uwzględnieniem testów fałszywej akceptacji i fałszywego odrzucenia.

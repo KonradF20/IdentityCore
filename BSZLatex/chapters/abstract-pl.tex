@@ -1,0 +1,12 @@
+\chapter*{Streszczenie}
+\label{cha:streszczenie-pl}
+
+Praca przedstawia projekt i implementację aplikacji \textit{IdentityCore}, będącej lokalnym systemem identyfikacji osób na podstawie danych biometrycznych. System został przygotowany jako aplikacja desktopowa w technologii WPF/.NET, współpracująca z lokalną bazą danych SQL Server. Głównym celem projektu było stworzenie prototypu umożliwiającego prowadzenie rejestru osób, zapisywanie danych biometrycznych, wykonywanie prób identyfikacji oraz analizę uzyskanych wyników.
+
+\bigskip
+
+W projekcie zastosowano dwa rodzaje biometrii: identyfikację twarzy oraz identyfikację odcisku palca. Moduł twarzy wykorzystuje model \texttt{arcface.onnx} do uzyskania reprezentacji cech twarzy, a następnie porównuje ją z zapisanymi wzorcami. Moduł odcisku palca wykorzystuje bibliotekę SourceAFIS do tworzenia i porównywania szablonów biometrycznych. Aplikacja uwzględnia również progi decyzyjne oraz margines pomiędzy najlepszym i drugim kandydatem, co pozwala odrzucać przypadki o zbyt niskim lub niejednoznacznym wyniku.
+
+\bigskip
+
+W ramach projektu przygotowano interfejs użytkownika obejmujący logowanie operatora, panel główny, rejestr osób, widoki identyfikacji twarzy i odcisku palca, historię prób oraz ustawienia systemowe. Przeprowadzone testy potwierdziły działanie podstawowych scenariuszy: poprawnego dopasowania oraz braku dopasowania dla obu typów biometrii. Wyniki mają charakter demonstracyjny i nie stanowią pełnej statystycznej walidacji systemu. Projekt pokazuje jednak kompletny przepływ działania prototypu systemu biometrycznego oraz wskazuje możliwe kierunki dalszego rozwoju, w tym zwiększenie bezpieczeństwa, rozszerzenie testów i dodanie mechanizmów wykrywania żywotności próbki.

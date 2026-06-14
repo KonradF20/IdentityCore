@@ -1,0 +1,99 @@
+\chapter{Analiza problemu i istniejących rozwiązań}
+\label{chap:analiza-problemu}
+
+\section{Opis problemu}
+
+Identyfikacja osoby w systemie informatycznym polega na ustaleniu, kto korzysta z systemu lub do kogo należy analizowany zestaw danych. W wielu aplikacjach proces ten opiera się na klasycznych metodach, takich jak login, hasło, karta dostępu, numer identyfikacyjny albo ręczna weryfikacja danych przez operatora. Rozwiązania te są powszechnie stosowane, ale w systemach bezpieczeństwa mogą być niewystarczające.
+
+Hasło może zostać zapomniane, ujawnione lub przechwycone. Karta dostępowa może zostać zgubiona albo przekazana innej osobie. Ręczna weryfikacja danych zależy natomiast od dokładności operatora i może być czasochłonna przy większej liczbie osób. W takich przypadkach sam identyfikator nie zawsze potwierdza, że dana osoba rzeczywiście jest tą, za którą się podaje.
+
+Cechy biometryczne mogą wspierać ten proces, ponieważ są powiązane bezpośrednio z człowiekiem. Twarz i odcisk palca należą do najczęściej wykorzystywanych cech tego typu. Mogą zostać zarejestrowane w postaci obrazu, przetworzone do reprezentacji biometrycznej, a następnie porównane z danymi zapisanymi wcześniej w systemie. Dzięki temu identyfikacja nie opiera się wyłącznie na wiedzy użytkownika lub posiadanym nośniku, ale także na analizie cechy fizycznej.
+
+W projekcie analizowany problem dotyczy identyfikacji osoby na podstawie wcześniej zarejestrowanych danych biometrycznych. System porównuje nową próbkę z danymi zapisanymi w bazie i wskazuje, czy odnaleziono dopasowanie.
+
+\section{Dane biometryczne wykorzystywane w projekcie}
+
+W projekcie wykorzystywane są dwa typy danych biometrycznych:
+\begin{itemize}
+    \item obraz twarzy,
+    \item obraz odcisku palca.
+\end{itemize}
+
+Obraz twarzy stanowi dane wejściowe pozwalające na utworzenie reprezentacji osoby na podstawie jej cech wyglądu. Tego typu dane mogą pochodzić z pliku graficznego lub z kamery. Dla poprawnego działania systemu ważne jest, aby twarz była widoczna, odpowiednio oświetlona i możliwa do przetworzenia.
+
+Obraz odcisku palca jest drugim rodzajem danych wejściowych. W tym przypadku system wykorzystuje plik graficzny przedstawiający układ linii papilarnych. Obraz taki służy do utworzenia reprezentacji biometrycznej odcisku, która może zostać porównana z wcześniej zapisanymi danymi.
+
+Oba typy danych nie są traktowane jako zwykłe obrazy porównywane bezpośrednio piksel po pikselu. Ich rola polega na dostarczeniu informacji potrzebnych do utworzenia reprezentacji biometrycznej, która następnie może zostać wykorzystana w procesie identyfikacji. Szczegóły sposobu tworzenia i porównywania tych reprezentacji opisano w dalszym rozdziale dotyczącym metod i algorytmów.
+
+\newpage
+
+\section{Założenia i ograniczenia systemu}
+
+Przyjęto, że system nie pełni roli produkcyjnego systemu bezpieczeństwa, lecz służy do zaprezentowania procesu identyfikacji osób na podstawie danych biometrycznych.
+
+Najważniejsze założenia przyjęte w projekcie są następujące:
+\begin{itemize}
+    \item system jest obsługiwany przez operatora,
+    \item identyfikacja odbywa się na podstawie danych wcześniej zapisanych w bazie,
+    \item analizowane dane mają postać obrazów twarzy i odcisków palców,
+    \item skuteczność identyfikacji zależy od jakości danych wejściowych,
+    \item wynik systemu ma wspierać proces identyfikacji, a nie zastępować pełnej ekspertyzy biometrycznej.
+\end{itemize}
+
+Na działanie systemu wpływa jakość obrazu. W przypadku twarzy znaczenie mają między innymi oświetlenie, ostrość zdjęcia, kąt ustawienia głowy oraz zasłonięcie części twarzy. W przypadku odcisku palca istotne są kompletność odcisku, jakość skanu, położenie palca oraz widoczność charakterystycznych elementów linii papilarnych.
+
+Istotnym ograniczeniem jest również brak pełnej detekcji żywotności użytkownika. System analizuje dostarczony obraz, ale nie potwierdza, czy próbka pochodzi od żywej osoby obecnej w momencie identyfikacji.
+
+Możliwym skutkiem ograniczeń jakościowych jest błędna identyfikacja albo odrzucenie poprawnej osoby. Szczegółowa analiza takich zagrożeń oraz odporności systemu została wydzielona do rozdziału poświęconego bezpieczeństwu.
+
+\section{Analiza istniejących rozwiązań}
+
+\subsection{Windows Hello}
+
+Windows Hello jest mechanizmem uwierzytelniania użytkownika w systemie Windows. Może wykorzystywać między innymi rozpoznawanie twarzy, odcisk palca lub kod PIN \cite{windowshello}. Rozwiązanie to jest stosowane głównie do logowania do urządzenia oraz potwierdzania tożsamości użytkownika w środowisku systemu operacyjnego.
+
+Zaletą Windows Hello jest wygoda użytkowania i integracja z systemem Windows. Użytkownik nie musi za każdym razem wpisywać hasła, a proces uwierzytelniania odbywa się szybko i lokalnie na urządzeniu. Ograniczeniem z perspektywy projektu jest zamknięty charakter rozwiązania. Użytkownik nie ma pełnego wglądu w sposób przetwarzania danych biometrycznych, strukturę zapisanych reprezentacji ani szczegóły podejmowania decyzji.
+
+W odniesieniu do projektu IdentityCore Windows Hello stanowi przykład praktycznego wykorzystania biometrii w aplikacjach codziennego użytku. Różnica polega na tym, że IdentityCore nie jest mechanizmem logowania do systemu operacyjnego, lecz aplikacją demonstracyjną pozwalającą obserwować cały proces zarządzania osobami i próbami identyfikacji.
+
+\newpage
+
+\subsection{Face ID}
+
+Face ID jest systemem rozpoznawania twarzy stosowanym w urządzeniach firmy Apple \cite{faceid}. Jego głównym zadaniem jest odblokowywanie urządzenia, autoryzacja operacji oraz potwierdzanie tożsamości użytkownika w ramach ekosystemu Apple. System wykorzystuje biometrię twarzy i jest zintegrowany bezpośrednio ze sprzętem oraz oprogramowaniem urządzenia.
+
+Najważniejszą zaletą Face ID jest wygoda i wysoki poziom integracji z urządzeniem. Proces uwierzytelniania jest szybki, a użytkownik nie musi wykonywać dodatkowych czynności poza spojrzeniem na urządzenie. Ograniczeniem z punktu widzenia dokumentowanego projektu jest to, że Face ID działa jako zamknięty mechanizm systemowy. Nie jest rozwiązaniem służącym do prowadzenia własnego rejestru osób, analizy historii prób ani eksperymentowania z parametrami działania.
+
+Dla projektu IdentityCore Face ID jest punktem odniesienia w zakresie wykorzystania twarzy jako cechy biometrycznej. Projekt nie próbuje odtwarzać tak zaawansowanego systemu sprzętowo-programowego, lecz pokazuje uproszczony proces identyfikacji twarzy w aplikacji desktopowej.
+
+\subsection{Systemy kontroli dostępu z odciskiem palca}
+
+Systemy kontroli dostępu wykorzystujące odciski palców są stosowane między innymi w firmach, laboratoriach, zamkach elektronicznych oraz systemach ewidencji czasu pracy. Ich zadaniem jest sprawdzenie, czy osoba przykładająca palec do czytnika znajduje się w bazie uprawnionych użytkowników \cite{fingerprintaccess}.
+
+Zaletą takich systemów jest prostota użycia oraz bezpośrednie powiązanie próby dostępu z cechą fizyczną użytkownika. Odcisk palca jest wygodny w codziennym użyciu i może być szybko porównany z zapisanymi wzorcami. Ograniczenia dotyczą przede wszystkim jakości odczytu, zabrudzenia palca lub skanera, nieprawidłowego przyłożenia palca oraz ryzyka użycia sztucznie przygotowanego odcisku.
+
+W porównaniu z takimi rozwiązaniami IdentityCore nie jest terminalem kontroli dostępu. Aplikacja nie otwiera drzwi ani nie zarządza uprawnieniami fizycznymi. Wykorzystuje jednak podobny typ danych biometrycznych i pozwala przeanalizować proces identyfikacji odcisku w środowisku projektowym.
+
+\subsection{Komercyjne SDK i systemy biometryczne}
+
+Istnieją również komercyjne zestawy SDK oraz systemy biometryczne umożliwiające budowę aplikacji wykorzystujących rozpoznawanie twarzy, odcisków palców lub innych cech biometrycznych \cite{biometricsdk}. Tego typu rozwiązania oferują gotowe mechanizmy obsługi danych biometrycznych, porównywania próbek, a czasem również integrację z urządzeniami zewnętrznymi.
+
+Ich zaletą jest szeroki zakres funkcji oraz możliwość użycia w profesjonalnych systemach bezpieczeństwa. Ograniczeniem w kontekście projektu jest często zamknięty charakter bibliotek oraz mniejsza przejrzystość działania. Część procesu rozpoznawania pozostaje ukryta wewnątrz gotowego narzędzia.
+
+IdentityCore korzysta z gotowych narzędzi jedynie tam, gdzie jest to uzasadnione zakresem projektu, ale samodzielnie organizuje przepływ danych, rejestr osób, zapis prób i prezentację wyników. Dzięki temu aplikacja pozwala lepiej pokazać zależność między jakością danych, sposobem ich porównania i decyzją systemu.
+
+\newpage
+
+\section{Wyróżniki projektowanego rozwiązania}
+
+IdentityCore różni się od opisanych rozwiązań przede wszystkim tym, że łączy kilka elementów w jednej aplikacji desktopowej. System nie jest wyłącznie mechanizmem logowania ani terminalem kontroli dostępu, lecz aplikacją pozwalającą zarządzać osobami, próbkami biometrycznymi oraz wynikami prób identyfikacji.
+
+Najważniejsze wyróżniki projektowanego rozwiązania to:
+\begin{itemize}
+    \item połączenie identyfikacji twarzy i odcisku palca w jednej aplikacji,
+    \item możliwość zarządzania osobami i próbkami biometrycznymi,
+    \item zapis historii prób identyfikacji,
+    \item możliwość późniejszej analizy skuteczności działania systemu.
+\end{itemize}
+
+Projekt nie konkuruje z komercyjnymi systemami biometrycznymi pod względem poziomu zabezpieczeń ani gotowości produkcyjnej. Jego wartość polega na pokazaniu kompletnego procesu identyfikacji w aplikacji, która łączy część biometryczną, użytkową i analityczną.

@@ -1,0 +1,118 @@
+\chapter{Architektura aplikacji}
+\label{chap:architektura}
+
+\section{Ogólna architektura systemu}
+
+Aplikacja \textit{IdentityCore} została zaprojektowana jako lokalna aplikacja desktopowa, w której wydzielono kilka głównych obszarów odpowiedzialności: warstwę prezentacji, logikę aplikacyjną, moduły biometryczne oraz warstwę dostępu do danych. Taki podział pozwala oddzielić elementy odpowiedzialne za wygląd aplikacji od części realizujących operacje identyfikacyjne i zapis danych.
+
+Na poziomie architektury system można traktować jako aplikację zorganizowaną warstwowo. Widoki odpowiadają za prezentację danych, modele widoków za obsługę stanu ekranów i akcji operatora, serwisy za logikę aplikacyjną, a katalog \texttt{Data} za komunikację z bazą danych. Moduły biometryczne są częścią logiki aplikacyjnej, ale zostały wydzielone tak, aby można było rozwijać je niezależnie od warstwy interfejsu.
+
+\section{Podział na warstwy i moduły}
+
+Najważniejsze warstwy oraz moduły aplikacji przedstawiono w tabeli~\ref{tab:warstwy-moduly}. Zestawienie pokazuje, za co odpowiadają poszczególne części projektu i gdzie znajdują się ich przykładowe elementy.
+
+\begin{xltabular}{\textwidth}{|p{2.9cm}|X|p{5.8cm}|}
+    \hline
+    \textbf{Moduł/warstwa} & \textbf{Odpowiedzialność} & \textbf{Przykładowe elementy \newline projektu} \\
+    \hline
+    \endfirsthead
+
+    \hline
+    \textbf{Moduł/warstwa} & \textbf{Odpowiedzialność} & \textbf{Przykładowe elementy \newline projektu} \\
+    \hline
+    \endhead
+
+    Warstwa widoków & Prezentacja interfejsu użytkownika oraz obsługa ekranów aplikacji. & Katalog \texttt{Views}, między innymi widoki panelu głównego, rejestru osób, \newline identyfikacji, historii, ustawień i \newline logowania. \\
+    \hline
+    Modele widoków & Przechowywanie stanu ekranów, obsługa komend oraz \newline pośredniczenie pomiędzy \newline widokiem a logiką aplikacji. & Katalog \texttt{ViewModels}, między innymi modele widoków panelu głównego, \newline rejestru osób, identyfikacji, historii i \newline ustawień. \\
+    \hline
+    Serwisy aplikacyjne & Realizacja operacji wymagających osobnej logiki aplikacyjnej lub przetwarzania danych. & Katalog \texttt{Services}, między innymi \newline serwisy logowania, kamery, \newline przetwarzania obrazów, identyfikacji i ustawień. \\
+    \hline
+    Warstwa dostępu \newline do danych & Odczyt, zapis i aktualizacja danych przechowywanych przez aplikację. & Katalog \texttt{Data}, między innymi \newline repozytoria osób, szablonów \newline biometrycznych, historii prób, panelu głównego oraz połączenia z bazą. \\
+    \hline
+    Modele danych & Reprezentacja obiektów \newline wykorzystywanych w systemie oraz wyników operacji. & Katalog \texttt{Models}, między innymi modele osoby, próbek biometrycznych, wyników identyfikacji, kandydatów dopasowania i ustawień decyzyjnych. \\
+    \hline
+    Moduł identyfikacji \newline twarzy & Obsługa procesu związanego z \newline analizą i porównywaniem danych twarzy. & Elementy w katalogach \texttt{Services}, \texttt{Models}, \texttt{Data}, \texttt{Assets} oraz \texttt{MLModels}. \\
+    \hline
+    Moduł identyfikacji \newline odcisku palca & Obsługa procesu związanego z \newline analizą i porównywaniem danych odcisku palca. & Elementy w katalogach \texttt{Services}, \texttt{Models} oraz \texttt{Data}. \\
+    \hline
+    Moduł historii prób & Przechowywanie i udostępnianie informacji o wykonanych próbach identyfikacji. & Widok historii, model widoku historii, repozytorium identyfikacji oraz model próby identyfikacji. \\
+    \hline
+    Moduł ustawień \newline systemowych & Obsługa parametrów \newline wpływających na działanie procesu identyfikacji. & Widok ustawień, model widoku \newline ustawień, \texttt{SystemSettingsService} oraz model ustawień biometrycznych. \\
+    \hline
+
+    \caption{Główne warstwy i moduły aplikacji}
+    \label{tab:warstwy-moduly}\\
+\end{xltabular}
+
+Podział przedstawiony w tabeli porządkuje odpowiedzialności w projekcie. Najważniejsze jest to, że widoki nie wykonują samodzielnie operacji biometrycznych ani nie obsługują bezpośrednio zapisu danych. Zadania te są przekazywane do odpowiednich modeli widoków, serwisów lub klas z warstwy \texttt{Data}.
+
+\newpage
+
+\section{Struktura projektu i organizacja kodu}
+
+Struktura katalogów pokazuje fizyczne rozmieszczenie poszczególnych elementów aplikacji w projekcie. Uproszczony układ katalogów przedstawiono poniżej.
+
+\begin{verbatim}
+IdentityCore.App/
+|-- Assets/
+|   `-- Cascades/
+|-- Data/
+|-- Database/
+|-- MLModels/
+|-- Models/
+|-- Services/
+|-- Styles/
+|-- ViewModels/
+|-- Views/
+|-- App.xaml
+|-- App.xaml.cs
+|-- AssemblyInfo.cs
+|-- IdentityCore.App.csproj
+|-- MainWindow.xaml
+`-- MainWindow.xaml.cs
+\end{verbatim}
+
+Katalog \texttt{Assets} przechowuje katalog \texttt{Cascades} zawierający pliki kaskad wykorzystywane pomocniczo podczas pracy z obrazami twarzy.
+
+Katalog \texttt{Data} zawiera klasy odpowiedzialne za dostęp do danych. W tym miejscu umieszczono połączenie z bazą danych oraz repozytoria obsługujące dane osób, próbek biometrycznych, szablonów twarzy, szablonów odcisków palców, historii identyfikacji, panelu głównego i logowania.
+
+Katalog \texttt{Database} zawiera skrypty SQL służące do tworzenia, aktualizacji oraz czyszczenia danych biometrycznych w bazie. Szczegółowy opis struktury danych zostanie przedstawiony w osobnym rozdziale dotyczącym bazy danych.
+
+Katalog \texttt{MLModels} przechowuje plik modelu wykorzystywany przez moduł identyfikacji twarzy. Oddzielenie tego typu zasobów od kodu aplikacji ułatwia utrzymanie porządku w projekcie.
+
+Katalog \texttt{Models} zawiera klasy opisujące dane wykorzystywane w systemie, między innymi osoby, próbki biometryczne, wyniki identyfikacji, kandydatów dopasowania, szablony oraz ustawienia decyzyjne.
+
+Katalog \texttt{Services} grupuje logikę aplikacyjną, która nie należy bezpośrednio do widoków. Obejmuje to między innymi obsługę logowania, kamery, przetwarzania obrazów, identyfikacji, diagnostyki, kalibracji i ustawień.
+
+Katalog \texttt{Styles} zawiera współdzielone pliki XAML odpowiedzialne za wygląd elementów interfejsu, takich jak przyciski, karty, kolory, tabele i pola wejściowe.
+
+Katalogi \texttt{ViewModels} i \texttt{Views} odpowiadają za warstwę użytkową aplikacji. Pierwszy z nich przechowuje modele widoków obsługujące stan ekranów i komendy, a drugi zawiera pliki widoków oraz powiązane z nimi pliki code-behind. Pliki \texttt{App.xaml} i \texttt{MainWindow.xaml} odpowiadają za uruchomienie aplikacji oraz główne okno programu.
+
+\section{Zastosowane wzorce i zasady projektowe}
+
+Organizacja aplikacji opiera się na podejściu MVVM. W projekcie oznacza to, że widok odpowiada za prezentację danych, a model widoku obsługuje stan ekranu, komendy i przekazywanie zadań do dalszych warstw aplikacji. Dzięki temu logika działania nie musi być umieszczana bezpośrednio w plikach widoków.
+
+Serwisy odpowiadają za operacje wymagające osobnej logiki aplikacyjnej. Dotyczy to między innymi przetwarzania obrazów, obsługi kamery, logowania, ustawień oraz identyfikacji biometrycznej. Wydzielenie serwisów ogranicza rozrastanie się modeli widoków i pozwala utrzymać bardziej czytelny podział zadań.
+
+Najważniejszą zasadą projektową jest separacja odpowiedzialności. Każdy element aplikacji ma określoną rolę: widok prezentuje dane, model widoku obsługuje zachowanie ekranu, serwis wykonuje logikę aplikacyjną, model opisuje dane, a warstwa \texttt{Data} odpowiada za ich trwały zapis i odczyt.
+
+\section{Walidacja danych}
+
+Walidacja danych dotyczy sprawdzenia poprawności informacji przed wykonaniem operacji. Jej celem jest ograniczenie sytuacji, w których aplikacja próbuje zapisać niepełne dane osoby, uruchomić identyfikację bez próbki wejściowej albo wykonać porównanie bez danych odniesienia.
+
+W rejestrze osób walidacja obejmuje kontrolę wymaganych pól i podstawowej poprawności danych profilu. W modułach biometrycznych sprawdzane jest przede wszystkim to, czy dostępny jest plik lub obraz możliwy do dalszej analizy. Jeżeli dane są niekompletne, operacja nie powinna być wykonywana do momentu ich poprawienia.
+
+Walidacja pełni więc funkcję zabezpieczenia przed typowymi błędami użytkowania aplikacji. Szczegółowy sposób prezentowania komunikatów operatorowi zostanie opisany w rozdziale dotyczącym warstwy użytkowej.
+
+\section{Obsługa błędów i wyjątków}
+
+Obsługa błędów dotyczy sytuacji, w których mimo sprawdzenia danych operacja nie może zostać wykonana poprawnie. Mogą to być problemy z połączeniem z bazą danych, niepowodzenie zapisu lub odczytu, niepoprawny plik wejściowy, błąd przetwarzania obrazu albo nieudana próba logowania.
+
+W takich przypadkach aplikacja powinna reagować w sposób kontrolowany. Typowy problem nie powinien powodować nagłego przerwania działania programu, lecz zakończyć się przekazaniem operatorowi informacji o przyczynie niepowodzenia. Pozwala to poprawić dane, wybrać inny plik, ponowić próbę albo sprawdzić konfigurację środowiska.
+
+Obsługa wyjątków uzupełnia walidację. Walidacja zapobiega części błędów przed rozpoczęciem operacji, natomiast obsługa wyjątków odpowiada za przypadki, których nie dało się przewidzieć lub które wystąpiły w trakcie działania aplikacji.
+
+\section{Czytelność i utrzymanie projektu}
+
+Przyjęty podział projektu ułatwia analizę i dalszą rozbudowę aplikacji. Najważniejsze znaczenie ma oddzielenie widoków od logiki aplikacyjnej, wydzielenie serwisów oraz skupienie dostępu do danych w katalogu \texttt{Data}. Dzięki temu projekt pozostaje czytelny i możliwy do rozwijania w ramach kolejnych etapów pracy.
